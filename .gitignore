@@ -32,6 +32,7 @@
 
 # Personal
 /lib/Foundation/rough/
+/android/app/google-services.json
 *google-services.json
 
 # Web related
