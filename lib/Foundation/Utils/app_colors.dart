@@ -5,10 +5,21 @@ class AppColors {
 
   AppColors._();
 
-//  static const _white = 0xff;
+  static const _oylexWindowBackground = 0xfff3f5f9;
   static const _oylexPrimaryPrivate = 0xff37b1c6;
   static const _oylexPrimaryDarkPrivate = 0xff008195;
   static const _oylexAccentPrivate = 0xffC64C37;
+
+  static const MaterialColor windowBackground = const MaterialColor(
+    _oylexWindowBackground,
+    const <int, Color>{
+      500: const Color(_oylexWindowBackground),
+      600: const Color(0xFFeef1f6),
+      700: const Color(0xFFdde3ee),
+      800: const Color(0xFFccd5e5),
+      900: const Color(0xFFbbc6dd),
+    },
+  );
 
   static const MaterialColor oylexPrimary = const MaterialColor(
     _oylexPrimaryPrivate,
