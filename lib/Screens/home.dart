@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oylex/Screens/login.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key, this.title}) : super(key: key);
@@ -15,6 +16,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+      ),
+      body: FlatButton(
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => LoginScreen()));
+        },
+        child: Text("Go to Login"),
       ),
     );
   }
