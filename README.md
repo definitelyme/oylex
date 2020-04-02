@@ -7,7 +7,7 @@ This project is the starting point for the Oylex e-learning platform.
 
 #### Note:
 __This is an Open Source Project. For help making contributions, email
-the Developer at [Brendan Ejike](mailto:ejike.br@gmail.com)__
+the Developer - [Brendan Ejike](mailto:ejike.br@gmail.com)__
 
 ## About Us
 #### Our Story
