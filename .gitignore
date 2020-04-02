@@ -32,7 +32,7 @@
 
 # Personal
 /lib/Foundation/rough/
-/android/app/src/google-services.json
+*google-services.json
 
 # Web related
 lib/generated_plugin_registrant.dart
