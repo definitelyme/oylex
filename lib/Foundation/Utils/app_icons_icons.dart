@@ -11,7 +11,7 @@
 ///      fonts:
 ///       - asset: fonts/AppIcons.ttf
 ///
-///
+/// 
 /// * Linecons, Copyright (C) 2013 by Designmodo
 ///         Author:    Designmodo for Smashing Magazine
 ///         License:   CC BY ()
@@ -57,8 +57,7 @@ class AppIcons {
   static const IconData search = IconData(0xe806, fontFamily: _kFontFam);
   static const IconData search_web = IconData(0xe807, fontFamily: _kFontFam);
   static const IconData down_open = IconData(0xe808, fontFamily: _kFontFam);
-  static const IconData down_open_encrypto =
-      IconData(0xe809, fontFamily: _kFontFam);
+  static const IconData down_open_encrypto = IconData(0xe809, fontFamily: _kFontFam);
   static const IconData home = IconData(0xe900, fontFamily: _kFontFam);
   static const IconData pencil = IconData(0xe90d, fontFamily: _kFontFam);
   static const IconData credit_card = IconData(0xea59, fontFamily: _kFontFam);
@@ -69,12 +68,13 @@ class AppIcons {
   static const IconData chevron_right = IconData(0xec3c, fontFamily: _kFontFam);
   static const IconData ellipsis = IconData(0xece9, fontFamily: _kFontFam);
   static const IconData search_ic8 = IconData(0xefd4, fontFamily: _kFontFam);
+  static const IconData eyelash_open = IconData(0xefd6, fontFamily: _kFontFam);
+  static const IconData eyelash_closed = IconData(0xefd7, fontFamily: _kFontFam);
   static const IconData cash = IconData(0xf0d6, fontFamily: _kFontFam);
   static const IconData angle_down = IconData(0xf107, fontFamily: _kFontFam);
   static const IconData cc_mastercard = IconData(0xf1f1, fontFamily: _kFontFam);
   static const IconData cc_paypal = IconData(0xf1f4, fontFamily: _kFontFam);
   static const IconData cc_stripe = IconData(0xf1f5, fontFamily: _kFontFam);
-  static const IconData credit_card_alt =
-      IconData(0xf283, fontFamily: _kFontFam);
+  static const IconData credit_card_alt = IconData(0xf283, fontFamily: _kFontFam);
   static const IconData paypal = IconData(0xf342, fontFamily: _kFontFam);
 }
