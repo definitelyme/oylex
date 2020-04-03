@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oylex/Foundation/Utils/app_colors.dart';
 import 'package:oylex/Foundation/Utils/app_icons_icons.dart';
+import 'package:oylex/components/auth/text-form-input.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -10,8 +11,44 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailNode = FocusNode();
+  final _passwordNode = FocusNode();
+  bool _passwordObscured = true;
+  bool _autoValidate = false;
+  String _email, _password;
+
+  void _toggleObscurity() {
+    setState(() {
+      _passwordObscured = !_passwordObscured;
+    });
+  }
+
+  void _navigateBack() {
+    // TODO: Navigate and Pop Screen from Stack
+  }
+
+  void _forgotPassword() {
+    // TODO: Navigate to Forgot Password Screen
+  }
+
+  void _validateAndLogin() {
+    if (!_formKey.currentState.validate()) {
+      // If Form is not valid
+      setState(() {
+        // else set state & turn on autovalidate
+        _autoValidate = true;
+      });
+      return;
+    }
+    print("First Name: $_email");
+    print("Last Name: $_password");
+  }
+
   @override
   Widget build(BuildContext context) {
+    double _deviceWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Log In",
@@ -27,11 +64,11 @@ class _LoginScreenState extends State<LoginScreen> {
               color: AppColors.oylexPrimaryDark.shade200,
               size: 30.0,
             ),
-            onPressed: () {},
+            onPressed: _navigateBack,
             tooltip: MaterialLocalizations.of(context).backButtonTooltip),
       ),
       body: SingleChildScrollView(
-        physics: ClampingScrollPhysics(),
+        physics: BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
         controller: ScrollController(),
         child: Container(
@@ -40,6 +77,9 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
+              SizedBox(
+                height: 40.0,
+              ),
               Text(
                 "Enter your login details to \naccess your account",
                 textAlign: TextAlign.center,
@@ -68,6 +108,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           )
                         ]),
                     child: Form(
+                      key: _formKey,
+                      autovalidate: _autoValidate,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
@@ -78,27 +120,24 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Container(
                               margin: EdgeInsets.fromLTRB(16, 0.0, 16.0, 0.0),
                               alignment: Alignment.center,
-                              child: TextFormField(
-                                maxLines: 1,
+                              child: AuthTextField(
                                 textCapitalization: TextCapitalization.none,
-                                cursorColor: AppColors.oylexPrimary.shade400,
-                                validator: (value) {},
+                                hint: "Your Email",
+                                focusNode: _emailNode,
+                                inputAction: TextInputAction.next,
+                                validator: (value) {
+                                  if (_email == null || _email.isEmpty)
+                                    return "Field is required";
+                                  Pattern pattern =
+                                      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                                  RegExp regex = RegExp(pattern);
+                                  if (!regex.hasMatch(_email))
+                                    return "Enter a valid email!";
+                                  return null;
+                                },
                                 keyboardType: TextInputType.emailAddress,
-                                decoration: InputDecoration(
-                                    isDense: true,
-                                    hasFloatingPlaceholder: true,
-                                    hintText: "Your Email",
-                                    disabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.transparent)),
-                                    enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.transparent)),
-                                    focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.transparent))),
-                                style: TextStyle(fontSize: 20.0),
-                                onChanged: (value) {},
+                                onChanged: (value) => _email = value,
+                                onInputAction: () => _passwordNode,
                               ),
                             ),
                           ),
@@ -121,43 +160,35 @@ class _LoginScreenState extends State<LoginScreen> {
                                     flex: 2,
                                     fit: FlexFit.tight,
                                     child: Container(
-                                      child: TextFormField(
-                                        maxLines: 1,
+                                      child: AuthTextField(
                                         textCapitalization:
                                             TextCapitalization.none,
-                                        cursorColor:
-                                            AppColors.oylexPrimary.shade400,
-                                        validator: (value) {},
+                                        focusNode: _passwordNode,
+                                        inputAction: TextInputAction.go,
+                                        validator: (value) {
+                                          if (_password == null ||
+                                              _password.isEmpty)
+                                            return "Field is required";
+                                          return null;
+                                        },
                                         keyboardType:
                                             TextInputType.emailAddress,
-                                        obscureText: true,
-                                        decoration: InputDecoration(
-                                            isDense: true,
-                                            hasFloatingPlaceholder: true,
-                                            hintText: "Your Password",
-                                            disabledBorder:
-                                                UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors
-                                                            .transparent)),
-                                            enabledBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.transparent)),
-                                            focusedBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color:
-                                                        Colors.transparent))),
-                                        style: TextStyle(fontSize: 20.0),
-                                        onChanged: (value) {},
+                                        obscureText: _passwordObscured,
+                                        hint: "Your Password",
+                                        onChanged: (value) => _password = value,
+                                        onInputAction: _validateAndLogin,
                                       ),
                                     ),
                                   ),
                                   Material(
                                     color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    shape: CircleBorder(),
+                                    clipBehavior: Clip.hardEdge,
                                     child: IconButton(
-                                      icon: Icon(AppIcons.eyelash_closed),
-                                      onPressed: () {},
+                                      icon: Icon(_passwordObscured
+                                          ? AppIcons.eyelash_closed
+                                          : AppIcons.eyelash_open),
+                                      onPressed: _toggleObscurity,
                                     ),
                                   ),
                                   VerticalDivider(
@@ -177,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           MaterialTapTargetSize.shrinkWrap,
                                       padding: EdgeInsets.all(0.0),
                                       color: Colors.transparent,
-                                      onPressed: () {},
+                                      onPressed: _forgotPassword,
                                     ),
                                   )
                                 ],
@@ -189,8 +220,51 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   )),
               SizedBox(
-                height: 16.0,
+                height: 60.0,
               ),
+              Container(
+                width: (_deviceWidth / 2) * 1.83,
+                height: 50.0,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: <Widget>[
+                    FlatButton(
+                      child: Text(
+                        "CONTINUE",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.0,
+                            letterSpacing: 1.2,
+                            fontWeight: FontWeight.w300),
+                      ),
+                      color: AppColors.oylexPrimary.shade400,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                      onPressed: _validateAndLogin,
+                    ),
+                    Positioned(
+                      right: 16.0,
+                      top: 1.0,
+                      bottom: 1.0,
+                      child: Container(
+                        padding: EdgeInsets.all(3.0),
+                        decoration: BoxDecoration(
+                          color: AppColors.oylexPrimary.shade600,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.arrow_forward,
+                          color: Colors.white,
+                          size: 19.0,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 25.0,
+              )
             ],
           ),
         ),
