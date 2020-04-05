@@ -4,12 +4,13 @@ import 'package:oylex/Foundation/Utils/app_colors.dart';
 class AuthTextField extends StatefulWidget {
   AuthTextField(
       {@required this.hint,
+      this.text = "",
       this.focusNode,
       this.textCapitalization = TextCapitalization.none,
       this.keyboardType = TextInputType.text,
       this.inputAction = TextInputAction.done,
       this.obscureText = false,
-      this.enableSuggestions = false,
+      this.enableSuggestions = true,
       this.textStyle = const TextStyle(fontSize: 20.0),
       this.focusBorder = const BorderSide(color: Colors.transparent),
       this.enabledBorder = const BorderSide(color: Colors.transparent),
@@ -18,6 +19,7 @@ class AuthTextField extends StatefulWidget {
       this.onInputAction});
 
   final String hint;
+  final String text;
   final FocusNode focusNode;
   final TextCapitalization textCapitalization;
   final TextInputType keyboardType;
@@ -39,6 +41,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
       maxLines: 1,
+      initialValue: widget.text,
       textCapitalization: widget.textCapitalization,
       cursorColor: AppColors.oylexPrimary.shade400,
       keyboardType: widget.keyboardType,
