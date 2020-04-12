@@ -28,7 +28,8 @@ class MyApp extends StatelessWidget {
           accentColor: AppColors.oylexAccent,
           textTheme:
               GoogleFonts.workSansTextTheme(Theme.of(context).textTheme)),
-      home: IntroScreen(),
+//      home: IntroScreen(),
+      initialRoute: IntroScreen.routeName,
       routes: router,
       onUnknownRoute: (settings) =>
           CupertinoPageRoute(builder: (context) => RootScreen()),

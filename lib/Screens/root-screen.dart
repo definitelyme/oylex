@@ -62,7 +62,7 @@ class _RootScreenState extends State<RootScreen> {
           children: <Widget>[
             BottomNavigationBar(
               currentIndex: _currentIndex,
-              elevation: 0.0,
+              elevation: 5.0,
               showSelectedLabels: false,
               showUnselectedLabels: false,
               onTap: _updateNavigationIndex,
