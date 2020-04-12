@@ -4,8 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oylex/Foundation/Utils/app_colors.dart';
 import 'package:oylex/Foundation/Utils/routes.dart';
-import 'package:oylex/Screens/auth/verify-pin.dart';
-import 'package:oylex/Screens/home.dart';
+import 'package:oylex/Screens/root-screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -28,10 +27,11 @@ class MyApp extends StatelessWidget {
           accentColor: AppColors.oylexAccent,
           textTheme:
               GoogleFonts.workSansTextTheme(Theme.of(context).textTheme)),
-      home: VerifyPinScreen(),
+//      home: IntroScreen(),
+//      initialRoute: IntroScreen.routeName,
       routes: router,
       onUnknownRoute: (settings) =>
-          CupertinoPageRoute(builder: (context) => HomeScreen()),
+          CupertinoPageRoute(builder: (context) => RootScreen()),
     );
   }
 }

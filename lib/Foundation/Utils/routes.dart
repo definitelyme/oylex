@@ -5,13 +5,13 @@ import 'package:oylex/Screens/auth/phone-number.dart';
 import 'package:oylex/Screens/auth/register-1.dart';
 import 'package:oylex/Screens/auth/register-2.dart';
 import 'package:oylex/Screens/auth/verify-pin.dart';
-import 'package:oylex/Screens/home.dart';
 import 'package:oylex/Screens/intro-screen.dart';
+import 'package:oylex/Screens/root-screen.dart';
 import 'package:oylex/components/permission.dart';
 
 var router = {
   IntroScreen.routeName: (context) => IntroScreen(),
-  HomeScreen.routeName: (context) => HomeScreen(),
+  RootScreen.routeName: (context) => RootScreen(),
   LoginScreen.routeName: (context) => LoginScreen(),
   NewAccountScreen.routeName: (context) => NewAccountScreen(),
   CreatePasswordScreen.routeName: (context) => CreatePasswordScreen(),

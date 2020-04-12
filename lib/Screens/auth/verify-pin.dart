@@ -6,8 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:oylex/Foundation/Utils/app_colors.dart';
 import 'package:oylex/Foundation/Utils/routes.dart';
 import 'package:oylex/Models/RouteArgs/permission-args.dart';
-import 'package:oylex/Screens/home.dart';
 import 'package:oylex/Screens/intro-screen.dart';
+import 'package:oylex/Screens/root-screen.dart';
 import 'package:oylex/components/appbar.dart';
 import 'package:oylex/components/permission.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -55,7 +55,7 @@ class _VerifyPinScreenState extends State<VerifyPinScreen> {
             title: "Notifications",
             description:
                 "Stay notified about new course updates from instructors, score board stats and friend follows",
-            nextRoute: HomeScreen.routeName,
+            nextRoute: RootScreen.routeName,
             skipEnabled: true);
 
         navigateAndPopUntil(
