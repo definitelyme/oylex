@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oylex/Foundation/Utils/app_colors.dart';
 import 'package:oylex/Foundation/Utils/routes.dart';
-import 'package:oylex/Screens/intro-screen.dart';
 import 'package:oylex/Screens/root-screen.dart';
 
 void main() => runApp(MyApp());
@@ -29,7 +28,7 @@ class MyApp extends StatelessWidget {
           textTheme:
               GoogleFonts.workSansTextTheme(Theme.of(context).textTheme)),
 //      home: IntroScreen(),
-      initialRoute: IntroScreen.routeName,
+//      initialRoute: IntroScreen.routeName,
       routes: router,
       onUnknownRoute: (settings) =>
           CupertinoPageRoute(builder: (context) => RootScreen()),

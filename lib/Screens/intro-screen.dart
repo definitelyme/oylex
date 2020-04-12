@@ -9,6 +9,7 @@ import 'package:oylex/components/intro-screen-model.dart';
 
 class IntroScreen extends StatefulWidget {
   static final routeName = "/welcome-screen";
+//  static final routeName = "/";
 
   @override
   _IntroScreenState createState() => _IntroScreenState();
