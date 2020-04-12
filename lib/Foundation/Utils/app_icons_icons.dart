@@ -24,10 +24,6 @@
 ///         Author:    Stephen Hutchings
 ///         License:   SIL (http://scripts.sil.org/OFL)
 ///         Homepage:  http://typicons.com/
-/// * Modern Pictograms, Copyright (c) 2012 by John Caserta. All rights reserved.
-///         Author:    John Caserta
-///         License:   SIL (http://scripts.sil.org/OFL)
-///         Homepage:  http://thedesignoffice.org/project/modern-pictograms/
 /// * Font Awesome, Copyright (C) 2016 by Dave Gandy
 ///         Author:    Dave Gandy
 ///         License:   SIL ()
@@ -47,34 +43,44 @@ class AppIcons {
   AppIcons._();
 
   static const _kFontFam = 'AppIcons';
+  static const _kFontPkg = null;
 
-  static const IconData wallet = IconData(0xe800, fontFamily: _kFontFam);
-  static const IconData money = IconData(0xe801, fontFamily: _kFontFam);
-  static const IconData stripe = IconData(0xe802, fontFamily: _kFontFam);
-  static const IconData home_outline = IconData(0xe803, fontFamily: _kFontFam);
-  static const IconData edit = IconData(0xe804, fontFamily: _kFontFam);
-  static const IconData floppy = IconData(0xe805, fontFamily: _kFontFam);
-  static const IconData search = IconData(0xe806, fontFamily: _kFontFam);
-  static const IconData search_web = IconData(0xe807, fontFamily: _kFontFam);
-  static const IconData down_open = IconData(0xe808, fontFamily: _kFontFam);
-  static const IconData down_open_encrypto = IconData(0xe809, fontFamily: _kFontFam);
-  static const IconData home = IconData(0xe900, fontFamily: _kFontFam);
-  static const IconData pencil = IconData(0xe90d, fontFamily: _kFontFam);
-  static const IconData credit_card = IconData(0xea59, fontFamily: _kFontFam);
-  static const IconData briefcase = IconData(0xeb3a, fontFamily: _kFontFam);
-  static const IconData chevron_up = IconData(0xec39, fontFamily: _kFontFam);
-  static const IconData chevron_down = IconData(0xec3a, fontFamily: _kFontFam);
-  static const IconData chevron_left = IconData(0xec3b, fontFamily: _kFontFam);
-  static const IconData chevron_right = IconData(0xec3c, fontFamily: _kFontFam);
-  static const IconData ellipsis = IconData(0xece9, fontFamily: _kFontFam);
-  static const IconData search_ic8 = IconData(0xefd4, fontFamily: _kFontFam);
-  static const IconData eyelash_open = IconData(0xefd6, fontFamily: _kFontFam);
-  static const IconData eyelash_closed = IconData(0xefd7, fontFamily: _kFontFam);
-  static const IconData cash = IconData(0xf0d6, fontFamily: _kFontFam);
-  static const IconData angle_down = IconData(0xf107, fontFamily: _kFontFam);
-  static const IconData cc_mastercard = IconData(0xf1f1, fontFamily: _kFontFam);
-  static const IconData cc_paypal = IconData(0xf1f4, fontFamily: _kFontFam);
-  static const IconData cc_stripe = IconData(0xf1f5, fontFamily: _kFontFam);
-  static const IconData credit_card_alt = IconData(0xf283, fontFamily: _kFontFam);
-  static const IconData paypal = IconData(0xf342, fontFamily: _kFontFam);
+  static const IconData wallet = const IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData money = const IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData stripe = const IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData home_linear = const IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData floppy = const IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData search = const IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData down_open = const IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData down_open_encrypto = const IconData(0xe809, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData search_enctype = const IconData(0xe80a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData home_2 = const IconData(0xe900, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData pencil = const IconData(0xe90d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData credit_card = const IconData(0xea59, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData briefcase = const IconData(0xeb3a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData like_outlined = const IconData(0xebed, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData star_filled = const IconData(0xebee, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData star_outline = const IconData(0xebef, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData user_filled = const IconData(0xebf0, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData user_outlined = const IconData(0xebf1, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData search_filled = const IconData(0xebf2, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData book_filled = const IconData(0xebf3, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData book_outlined = const IconData(0xebf4, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData home_filled = const IconData(0xebf5, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData home_outline = const IconData(0xebf6, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData like_filled = const IconData(0xebf7, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData chevron_up = const IconData(0xec39, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData chevron_down = const IconData(0xec3a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData chevron_left = const IconData(0xec3b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData chevron_right = const IconData(0xec3c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData ellipsis = const IconData(0xece9, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData eyelash_open = const IconData(0xefd6, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData eyelash_closed = const IconData(0xefd7, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData cash = const IconData(0xf0d6, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData angle_down = const IconData(0xf107, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData cc_mastercard = const IconData(0xf1f1, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData cc_paypal = const IconData(0xf1f4, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData cc_stripe = const IconData(0xf1f5, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData credit_card_alt = const IconData(0xf283, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData paypal = const IconData(0xf342, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
