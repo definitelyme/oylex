@@ -30,12 +30,12 @@ class _RootScreenState extends State<RootScreen> {
     super.initState();
     _bottomNavigationController.addListener(() {
       if (_bottomNavigationController.position.userScrollDirection ==
-          ScrollDirection.reverse) {
-        if (_isBottomNavVisible) {
+              ScrollDirection.reverse &&
+          _bottomNavigationController.offset > kBottomNavigationBarHeight) {
+        if (_isBottomNavVisible)
           setState(() {
             _isBottomNavVisible = false;
           });
-        }
       }
       if (_bottomNavigationController.position.userScrollDirection ==
           ScrollDirection.forward) if (!_isBottomNavVisible)
@@ -43,18 +43,28 @@ class _RootScreenState extends State<RootScreen> {
     });
 
     _destinationViews = [
-      FeaturedScreen(),
-      SearchScreen(),
-      MyCoursesScreen(),
-      FavoriteScreen(),
-      AccountScreen(),
+      FeaturedScreen(
+        scrollController: _bottomNavigationController,
+      ),
+      SearchScreen(
+        scrollController: _bottomNavigationController,
+      ),
+      MyCoursesScreen(
+        scrollController: _bottomNavigationController,
+      ),
+      FavoriteScreen(
+        scrollController: _bottomNavigationController,
+      ),
+      AccountScreen(
+        scrollController: _bottomNavigationController,
+      ),
     ];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-//      body: ,
+      body: _destinationViews[_currentIndex],
       bottomNavigationBar: AnimatedContainer(
         duration: Duration(milliseconds: 250),
         height: _isBottomNavVisible ? kBottomNavigationBarHeight : 0.0,
