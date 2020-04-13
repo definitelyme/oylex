@@ -66,7 +66,7 @@ class _RootScreenState extends State<RootScreen> {
     return Scaffold(
       body: _destinationViews[_currentIndex],
       bottomNavigationBar: AnimatedContainer(
-        duration: Duration(milliseconds: 250),
+        duration: Duration(milliseconds: 200),
         height: _isBottomNavVisible ? kBottomNavigationBarHeight : 0.0,
         child: Wrap(
           children: <Widget>[
@@ -77,7 +77,7 @@ class _RootScreenState extends State<RootScreen> {
               showUnselectedLabels: false,
               onTap: _updateNavigationIndex,
               type: BottomNavigationBarType.fixed,
-              backgroundColor: AppColors.windowBackground,
+              backgroundColor: AppColors.windowBackground.shade700,
               selectedItemColor: AppColors.oylexPrimary.shade600,
               unselectedItemColor: AppColors.oylexPrimaryDark.shade400,
               items: Destination.destinations.map((destination) {

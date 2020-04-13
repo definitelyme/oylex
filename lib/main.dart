@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: AppColors.oylexPrimary,
           buttonTheme: ButtonThemeData(minWidth: 4),
-          scaffoldBackgroundColor: AppColors.windowBackground,
+          scaffoldBackgroundColor: AppColors.windowBackground.shade700,
           accentColor: AppColors.oylexAccent,
           textTheme:
               GoogleFonts.workSansTextTheme(Theme.of(context).textTheme)),

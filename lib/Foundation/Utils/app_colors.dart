@@ -15,7 +15,7 @@ class AppColors {
     const <int, Color>{
       500: const Color(_oylexWindowBackground),
       600: const Color(0xFFeef1f6),
-      700: const Color(0xFFdde3ee),
+      700: const Color(0xFFdee2e8),
       800: const Color(0xFFccd5e5),
       900: const Color(0xFFbbc6dd),
     },

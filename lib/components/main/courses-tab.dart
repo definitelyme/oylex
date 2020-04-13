@@ -127,7 +127,7 @@ class _CoursesTabState extends State<CoursesTab> {
           elevation: 0.0,
           type: MaterialType.card,
           textStyle: GoogleFonts.workSansTextTheme().title.copyWith(
-                fontSize: 15.5,
+                fontSize: 15.0,
                 fontWeight: FontWeight.w600,
               ),
         ),
@@ -159,7 +159,7 @@ class _CoursesTabState extends State<CoursesTab> {
                 BoxShadow(
                     color: AppColors.windowBackground.shade900,
                     blurRadius: 8.0,
-                    spreadRadius: 0.0,
+//                    spreadRadius: 0.0,
                     offset: Offset(-6.0, 6.0))
               ]
             : null;
@@ -169,7 +169,7 @@ class _CoursesTabState extends State<CoursesTab> {
                 BoxShadow(
                     color: AppColors.windowBackground.shade900,
                     blurRadius: 8.0,
-                    spreadRadius: 0.0,
+//                    spreadRadius: 0.0,
                     offset: Offset(0.0, 6.0))
               ]
             : null;
@@ -179,7 +179,7 @@ class _CoursesTabState extends State<CoursesTab> {
                 BoxShadow(
                     color: AppColors.windowBackground.shade900,
                     blurRadius: 8.0,
-                    spreadRadius: 0.0,
+//                    spreadRadius: 0.0,
                     offset: Offset(8.0, 6.0))
               ]
             : null;
