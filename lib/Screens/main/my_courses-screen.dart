@@ -18,7 +18,7 @@ class MyCoursesScreen extends StatefulWidget {
 }
 
 class _MyCoursesScreenState extends State<MyCoursesScreen> {
-  int _duration = 200;
+  int _duration = 160;
   Widget _child = RecentCoursesTab();
   List<Widget> _list = [
     RecentCoursesTab(),
