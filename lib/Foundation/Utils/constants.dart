@@ -17,6 +17,11 @@ double deviceHeight(BuildContext context) => MediaQuery.of(context).size.height;
 
 double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
 
+EdgeInsetsGeometry defaultEdgeSpacing(BuildContext context,
+        {double left, double top, double right, double bottom}) =>
+    EdgeInsets.fromLTRB(left ?? deviceLeftMargin(context), top ?? 0.0,
+        right ?? deviceLeftMargin(context), bottom ?? 0.0);
+
 double deviceMargin(BuildContext context) => deviceWidth(context) * 0.06;
 
 double deviceLeftMargin(BuildContext context) => deviceMargin(context);
