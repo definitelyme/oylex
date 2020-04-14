@@ -10,8 +10,8 @@ const Pattern symbolPattern =
     "(.*[@!#\$^*()\[\]\\{}%^&+=\"\"\'\'|;:<>-_,.?\/].*)";
 
 const IMAGES_FOLDER = "assets/images";
-const INTRO_IMAGES_FOLDER = "$IMAGES_FOLDER/intro/";
-const PERMISSION_IMAGES_FOLDER = "$IMAGES_FOLDER/permisssions/";
+const INTRO_IMAGES_FOLDER = "$IMAGES_FOLDER/intro";
+const PERMISSION_IMAGES_FOLDER = "$IMAGES_FOLDER/permisssions";
 
 double deviceHeight(BuildContext context) => MediaQuery.of(context).size.height;
 
