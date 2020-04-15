@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           accentColor: AppColors.oylexAccent,
           textTheme:
               GoogleFonts.workSansTextTheme(Theme.of(context).textTheme)),
-//      home: SampleTest(),
+//      home: SamplePainter(),
 //      initialRoute: IntroScreen.routeName,
       routes: router,
       onUnknownRoute: (settings) =>

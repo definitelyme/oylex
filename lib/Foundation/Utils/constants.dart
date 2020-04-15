@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 const Pattern emailPattern =
     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -27,3 +29,5 @@ double deviceMargin(BuildContext context) => deviceWidth(context) * 0.06;
 double deviceLeftMargin(BuildContext context) => deviceMargin(context);
 
 double deviceRightMargin(BuildContext context) => deviceMargin(context);
+
+TextTheme deviceFontTheme() => GoogleFonts.workSansTextTheme();
