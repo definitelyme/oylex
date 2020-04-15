@@ -12,12 +12,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final _globalKey = GlobalKey();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       //DeviceOrientation.portraitDown,
     ]);
 
     return MaterialApp(
+//      key: _globalKey,
       title: 'Oylex',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
           accentColor: AppColors.oylexAccent,
           textTheme:
               GoogleFonts.workSansTextTheme(Theme.of(context).textTheme)),
-//      home: IntroScreen(),
+//      home: SampleTest(),
 //      initialRoute: IntroScreen.routeName,
       routes: router,
       onUnknownRoute: (settings) =>

@@ -66,7 +66,7 @@ class _RootScreenState extends State<RootScreen> {
     return Scaffold(
       body: _destinationViews[_currentIndex],
       bottomNavigationBar: AnimatedContainer(
-        duration: Duration(milliseconds: 200),
+        duration: Duration(milliseconds: 50),
         height: _isBottomNavVisible ? kBottomNavigationBarHeight : 0.0,
         child: Wrap(
           children: <Widget>[
