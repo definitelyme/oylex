@@ -324,10 +324,6 @@ class TrianglePainter extends BoxPainter {
       ..style = PaintingStyle.fill;
   }
 
-  static double convertRadiusToSigma(double radius) {
-    return radius * 0.57735 + 0.5;
-  }
-
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration cfg) {
     final Offset triangleOffset =

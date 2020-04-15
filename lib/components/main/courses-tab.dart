@@ -1,24 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:oylex/Foundation/Utils/app_colors.dart';
 import 'package:oylex/Foundation/Utils/constants.dart';
 
 class CoursesTab extends StatefulWidget with PreferredSizeWidget {
   CoursesTab(
-      {Key key,
-      this.height,
-      this.tabWidth,
-      this.animationDuration,
-      this.onPressed})
+      {Key key, this.height, this.tabWidth, this.tabController, this.onPressed})
       : super(key: key);
 
   @required
   final double height;
   @required
   final double tabWidth;
-  final int animationDuration;
   @required
+  final TabController tabController;
   final Function onPressed;
 
   @override
@@ -29,38 +24,23 @@ class CoursesTab extends StatefulWidget with PreferredSizeWidget {
 }
 
 class _CoursesTabState extends State<CoursesTab> {
-  bool _tabOneSelected = true;
-  bool _tabTwoSelected = false;
-  bool _tabThreeSelected = false;
-
+  TabController _tabController;
+  int _currentIndex;
   final borderRadius = Radius.circular(16.0);
 
-  void _onTabClicked(TAB_POSITION position) {
-    switch (position) {
-      case TAB_POSITION.LEFT:
-        setState(() {
-          _tabOneSelected = true;
-          _tabTwoSelected = false;
-          _tabThreeSelected = false;
-          widget.onPressed(0); // First Tab index
-        });
-        break;
-      case TAB_POSITION.RIGHT:
-        setState(() {
-          _tabOneSelected = false;
-          _tabTwoSelected = false;
-          _tabThreeSelected = true;
-          widget.onPressed(2); // Third tab index
-        });
-        break;
-      default:
-        setState(() {
-          _tabOneSelected = false;
-          _tabTwoSelected = true;
-          _tabThreeSelected = false;
-          widget.onPressed(1); // Second Tab index
-        });
-    }
+  void _onTabChange(index) => setState(() => _currentIndex = index);
+
+  void _tabChangeListener() {
+    setState(() => _currentIndex = _tabController.index);
+    widget.onPressed();
+  }
+
+  @override
+  void initState() {
+    _tabController = widget.tabController;
+    _currentIndex = _tabController.index;
+    _tabController.addListener(_tabChangeListener);
+    super.initState();
   }
 
   @override
@@ -78,19 +58,27 @@ class _CoursesTabState extends State<CoursesTab> {
           margin: EdgeInsets.only(
               left: deviceLeftMargin(context),
               right: deviceRightMargin(context)),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Flexible(
+          child: TabBar(
+            labelPadding: EdgeInsets.zero,
+            isScrollable: false,
+            controller: _tabController,
+            onTap: _onTabChange,
+            indicator: ShadowTabIndicator(
+              color: AppColors.windowBackground.shade900,
+              currentIndex: _currentIndex,
+              lastIndex: _tabController.length,
+            ),
+            tabs: <Widget>[
+              Container(
+                height: widget.height,
                 child: _buildTab("RECENT", position: TAB_POSITION.LEFT),
               ),
-              VerticalDivider(thickness: 1.5, width: 1.5),
-              Flexible(
+              Container(
+                height: widget.height,
                 child: _buildTab("ALL"),
               ),
-              VerticalDivider(thickness: 1.5, width: 1.5),
-              Flexible(
+              Container(
+                height: widget.height,
                 child: _buildTab("STUDYING", position: TAB_POSITION.RIGHT),
               ),
             ],
@@ -101,37 +89,45 @@ class _CoursesTabState extends State<CoursesTab> {
   }
 
   Widget _buildTab(String title, {TAB_POSITION position}) {
-    return AnimatedContainer(
-      duration: Duration(milliseconds: widget.animationDuration),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: _buildTabRadius(position),
-          boxShadow: _buildBoxShadow(position)),
-      child: ClipRRect(
-        clipBehavior: Clip.hardEdge,
-        borderRadius: _buildTabRadius(position),
-        child: Material(
-          child: Center(
-            child: Ink(
-              width: widget.tabWidth,
-              height: widget.height,
-              child: InkWell(
-                onTap: () => _onTabClicked(position),
+    return Row(
+      children: <Widget>[
+        Flexible(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white70,
+              borderRadius: _buildTabRadius(position),
+            ),
+            child: ClipRRect(
+              borderRadius: _buildTabRadius(position),
+              clipBehavior: Clip.hardEdge,
+              child: Material(
+                color: Colors.transparent,
                 child: Center(
-                  child: Text(title),
+                  child: Ink(
+                    width: widget.tabWidth,
+                    height: widget.height,
+                    child: InkWell(
+                      child: Center(
+                        child: Text(title),
+                      ),
+                    ),
+                  ),
                 ),
-                highlightColor: Colors.grey.shade200,
+                elevation: 0.0,
+                type: MaterialType.card,
+                textStyle: deviceFontTheme().title.copyWith(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w600,
+                    ),
               ),
             ),
           ),
-          elevation: 0.0,
-          type: MaterialType.card,
-          textStyle: GoogleFonts.workSansTextTheme().title.copyWith(
-                fontSize: 15.0,
-                fontWeight: FontWeight.w600,
-              ),
         ),
-      ),
+        Visibility(
+          visible: position != TAB_POSITION.RIGHT,
+          child: VerticalDivider(thickness: 1.5, width: 1.5),
+        ),
+      ],
     );
   }
 
@@ -148,46 +144,78 @@ class _CoursesTabState extends State<CoursesTab> {
     }
   }
 
-  List<BoxShadow> _buildBoxShadow(TAB_POSITION position) {
-    // I know this is a very amateur way to achieving this task
-    // But i'm currently in a hurry, can't waste time.
-    // Perhaps later, i'll modify it
-    switch (position) {
-      case TAB_POSITION.LEFT:
-        return _tabOneSelected
-            ? [
-                BoxShadow(
-                    color: AppColors.windowBackground.shade900,
-                    blurRadius: 8.0,
-//                    spreadRadius: 0.0,
-                    offset: Offset(-6.0, 6.0))
-              ]
-            : null;
-      case TAB_POSITION.RIGHT:
-        return _tabThreeSelected
-            ? [
-                BoxShadow(
-                    color: AppColors.windowBackground.shade900,
-                    blurRadius: 8.0,
-//                    spreadRadius: 0.0,
-                    offset: Offset(0.0, 6.0))
-              ]
-            : null;
-      default:
-        return _tabTwoSelected
-            ? [
-                BoxShadow(
-                    color: AppColors.windowBackground.shade900,
-                    blurRadius: 8.0,
-//                    spreadRadius: 0.0,
-                    offset: Offset(8.0, 6.0))
-              ]
-            : null;
-    }
+  @override
+  void dispose() {
+    _tabController.removeListener(_tabChangeListener);
+    super.dispose();
   }
 }
 
 enum TAB_POSITION {
   LEFT,
   RIGHT,
+}
+
+class ShadowTabIndicator extends Decoration {
+  final BoxPainter _painter;
+
+  ShadowTabIndicator({@required Color color, int currentIndex, int lastIndex})
+      : _painter = ShadowPainter(color, currentIndex, lastIndex - 1);
+
+  @override
+  BoxPainter createBoxPainter([onChanged]) => _painter;
+}
+
+class ShadowPainter extends BoxPainter {
+  Paint _paint;
+  TAB_POSITION position;
+  int currentIndex;
+  int lastIndex;
+
+  ShadowPainter(Color color, this.currentIndex, this.lastIndex) {
+    _paint = Paint()
+      ..color = color.withAlpha(0xFFEE)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 8
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, convertRadiusToSigma(4));
+  }
+
+  static double convertRadiusToSigma(double radius) => radius * 0.57735 + 0.5;
+
+  @override
+  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
+    final size = configuration.size; // Tab Size (or Child size)
+
+    final path = Path();
+
+    if (currentIndex == 0) {
+      /// If index is at the beginning
+      // Move to point 0.0, 0.0
+      path.moveTo(offset.dx, size.height * 0.25);
+      // Draw line from point 0.0 (x-axis) to height (y-axis)
+      path.lineTo(offset.dx, size.height * 0.8);
+      // Apply a curve from 1% of width (x-axis) to height (y-axis)
+      path.lineTo(offset.dx + size.width * .1, size.height);
+      // Draw line from point 0.0 + width (x-axis) to height (y-axis)
+      path.lineTo(offset.dx + size.width * 0.95, size.height);
+    } else if (currentIndex == lastIndex) {
+      /// If Last Index
+      // Move to point horizontalOffset + width (x-axis), stop at 25% of height (y-axis)
+      path.moveTo(offset.dx + size.width, size.height * 0.25);
+      // Start from point horizontalOffset + width (x-axis), stop at 80% of height (y-axis)
+      path.lineTo(offset.dx + size.width, size.height * 0.8);
+      // Start from point horizontalOffset / 69% of width (x-axis), stop at 80% of height (y-axis)
+      path.lineTo(offset.dx / 0.69, size.height);
+      // Start from point horizontalOffset / 95% (x-axis), stop at verticalOffset + height (y-axis)
+      path.lineTo(offset.dx / 0.95, offset.dy + size.height);
+    } else {
+      /// Else somewhere in the middle
+      // Move to point horizontalOffset (x-axis), height (y-axis)
+      path.moveTo(offset.dx, size.height);
+      // Move to point horizontalOffset + width (x-axis), height (y-axis)
+      path.lineTo(offset.dx + size.width, size.height);
+    }
+    // Paint Path
+    canvas.drawPath(path, _paint);
+  }
 }

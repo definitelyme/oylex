@@ -17,9 +17,12 @@ class MyCoursesScreen extends StatefulWidget {
   _MyCoursesScreenState createState() => _MyCoursesScreenState();
 }
 
-class _MyCoursesScreenState extends State<MyCoursesScreen> {
+class _MyCoursesScreenState extends State<MyCoursesScreen>
+    with TickerProviderStateMixin {
   int _duration = 160;
+  int _tabCount = 3;
   Widget _child = RecentCoursesTab();
+  TabController _tabController;
   List<Widget> _list = [
     RecentCoursesTab(),
     AllCoursesTab(),
@@ -27,58 +30,26 @@ class _MyCoursesScreenState extends State<MyCoursesScreen> {
   ];
 
   @override
+  void initState() {
+    _tabController = TabController(length: _tabCount, vsync: this);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CoursesTab(
-        height: deviceHeight(context) * 0.09, // Means 9.5% of screen height
+        height: deviceHeight(context) * 0.085, // Means 9.5% of screen height
         tabWidth: deviceWidth(context) -
             (deviceLeftMargin(context) + deviceRightMargin(context)),
-        animationDuration: _duration,
-        onPressed: (int index) {
-          setState(() {
-            _child = _list[index];
-          });
-        },
+        tabController: _tabController,
       ),
-      body: SingleChildScrollView(
-        controller: widget.scrollController,
-        physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        padding: defaultEdgeSpacing(context),
-        // Left and Right Padding
-        child: AnimatedSwitcher(
-          duration: Duration(milliseconds: _duration),
-          child: _child,
-          transitionBuilder: (child, animation) {
-            final offsetAnimation = TweenSequence([
-              TweenSequenceItem(
-                  tween: Tween<Offset>(
-                      begin: Offset(1.0, 0.0), end: Offset(0.0, 0.0)),
-                  weight: 1),
-              TweenSequenceItem(
-                  tween: ConstantTween(Offset(0.0, 0.0)), weight: 3),
-              TweenSequenceItem(
-                  tween: Tween<Offset>(
-                      begin: Offset(-1.0, 0.0), end: Offset(0.0, 0.0)),
-                  weight: 1)
-            ]).animate(animation);
-            return ClipRect(
-              child: SlideTransition(
-                position: offsetAnimation,
-                child: child,
-              ),
-            );
-          },
-          layoutBuilder: (currentChild, previousChildren) {
-            List<Widget> children = previousChildren;
-            if (currentChild != null)
-              children = children.toList()..add(currentChild);
-            return Stack(
-              children: children,
-              alignment: Alignment.center,
-            );
-          },
-        ),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          for (var i in Iterable.generate(_tabCount))
+            Text("Good morning Tab $i")
+        ],
       ),
     );
   }
