@@ -18,10 +18,8 @@ class MyCoursesScreen extends StatefulWidget {
 }
 
 class _MyCoursesScreenState extends State<MyCoursesScreen>
-    with TickerProviderStateMixin {
-  int _duration = 160;
+    with SingleTickerProviderStateMixin {
   int _tabCount = 3;
-  Widget _child = RecentCoursesTab();
   TabController _tabController;
   List<Widget> _list = [
     RecentCoursesTab(),
@@ -36,6 +34,12 @@ class _MyCoursesScreenState extends State<MyCoursesScreen>
   }
 
   @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CoursesTab(
@@ -46,10 +50,8 @@ class _MyCoursesScreenState extends State<MyCoursesScreen>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: [
-          for (var i in Iterable.generate(_tabCount))
-            Text("Good morning Tab $i")
-        ],
+        physics: BouncingScrollPhysics(),
+        children: _list,
       ),
     );
   }
