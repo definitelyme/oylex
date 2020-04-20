@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FeaturedScreen extends StatefulWidget {
-  static final routeName = "/featured-screen";
+  static final keyValue = "featured-screen";
 
   FeaturedScreen({Key key, this.scrollController}) : super(key: key);
 

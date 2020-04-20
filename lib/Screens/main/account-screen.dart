@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AccountScreen extends StatefulWidget {
-  static final routeName = "/account-screen";
+  static final keyValue = "account-screen";
 
   AccountScreen({Key key, this.scrollController}) : super(key: key);
 

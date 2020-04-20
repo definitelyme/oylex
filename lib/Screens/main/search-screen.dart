@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
-  static final routeName = "/search-screen";
+  static final keyValue = "search-screen";
 
   SearchScreen({Key key, this.scrollController}) : super(key: key);
 
