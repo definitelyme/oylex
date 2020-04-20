@@ -8,6 +8,7 @@ import 'package:oylex/Screens/main/favorite-screen.dart';
 import 'package:oylex/Screens/main/featured-screen.dart';
 import 'package:oylex/Screens/main/my_courses-screen.dart';
 import 'package:oylex/Screens/main/search-screen.dart';
+import 'package:provider/provider.dart';
 
 class RootScreen extends StatefulWidget {
   static final routeName = "/";
@@ -17,45 +18,59 @@ class RootScreen extends StatefulWidget {
 }
 
 class _RootScreenState extends State<RootScreen> {
+  final PageStorageBucket _storageBucket = PageStorageBucket();
+  final Key featuredScreenKey = PageStorageKey(FeaturedScreen.keyValue);
+  final Key searchScreenKey = PageStorageKey(SearchScreen.keyValue);
+  final Key myCoursesScreenKey = PageStorageKey(MyCoursesScreen.keyValue);
+  final Key favoriteScreenKey = PageStorageKey(FavoriteScreen.keyValue);
+  final Key accountScreenKey = PageStorageKey(AccountScreen.keyValue);
   int _currentIndex = 0;
-  ScrollController _bottomNavigationController = ScrollController();
   bool _isBottomNavVisible = true;
   List<Widget> _destinationViews;
+  ScrollController _bottomNavigationController = ScrollController();
 
   void _updateNavigationIndex(int index) =>
       setState(() => _currentIndex = index);
 
+  void _scrollListener() {
+    if (_bottomNavigationController.position.userScrollDirection ==
+            ScrollDirection.reverse &&
+        _bottomNavigationController.offset > kBottomNavigationBarHeight) {
+      if (_isBottomNavVisible)
+        setState(() {
+          _isBottomNavVisible = false;
+        });
+    }
+    if (_bottomNavigationController.position.userScrollDirection ==
+            ScrollDirection.forward ||
+        _bottomNavigationController.offset == 0.0) if (!_isBottomNavVisible)
+      setState(() => _isBottomNavVisible = true);
+  }
+
   @override
   void initState() {
     super.initState();
-    _bottomNavigationController.addListener(() {
-      if (_bottomNavigationController.position.userScrollDirection ==
-              ScrollDirection.reverse &&
-          _bottomNavigationController.offset > kBottomNavigationBarHeight) {
-        if (_isBottomNavVisible)
-          setState(() {
-            _isBottomNavVisible = false;
-          });
-      }
-      if (_bottomNavigationController.position.userScrollDirection ==
-          ScrollDirection.forward) if (!_isBottomNavVisible)
-        setState(() => _isBottomNavVisible = true);
-    });
+    _bottomNavigationController.addListener(_scrollListener);
 
     _destinationViews = [
       FeaturedScreen(
+        key: featuredScreenKey,
         scrollController: _bottomNavigationController,
       ),
       SearchScreen(
+        key: searchScreenKey,
         scrollController: _bottomNavigationController,
       ),
       MyCoursesScreen(
+        key: myCoursesScreenKey,
         scrollController: _bottomNavigationController,
       ),
       FavoriteScreen(
+        key: favoriteScreenKey,
         scrollController: _bottomNavigationController,
       ),
       AccountScreen(
+        key: accountScreenKey,
         scrollController: _bottomNavigationController,
       ),
     ];
@@ -64,9 +79,16 @@ class _RootScreenState extends State<RootScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _destinationViews[_currentIndex],
+      body: PageStorage(
+        // For storing navigation state
+        bucket: _storageBucket,
+        child: ListenableProvider<ScrollController>.value(
+          value: _bottomNavigationController,
+          child: _destinationViews[_currentIndex],
+        ),
+      ),
       bottomNavigationBar: AnimatedContainer(
-        duration: Duration(milliseconds: 50),
+        duration: Duration(milliseconds: 350),
         height: _isBottomNavVisible ? kBottomNavigationBarHeight : 0.0,
         child: Wrap(
           children: <Widget>[
@@ -92,5 +114,12 @@ class _RootScreenState extends State<RootScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _bottomNavigationController.removeListener(_scrollListener);
+    _bottomNavigationController.dispose();
+    super.dispose();
   }
 }

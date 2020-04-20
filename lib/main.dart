@@ -27,13 +27,11 @@ class MyApp extends StatelessWidget {
           buttonTheme: ButtonThemeData(minWidth: 4),
           scaffoldBackgroundColor: AppColors.windowBackground.shade700,
           accentColor: AppColors.oylexAccent,
-          textTheme:
-              GoogleFonts.workSansTextTheme(Theme.of(context).textTheme)),
-//      home: SampleTest(),
+          textTheme: GoogleFonts.workSansTextTheme(Theme.of(context).textTheme)),
+//      home: ScrollablePositionedListPage(),
 //      initialRoute: IntroScreen.routeName,
       routes: router,
-      onUnknownRoute: (settings) =>
-          CupertinoPageRoute(builder: (context) => RootScreen()),
+      onUnknownRoute: (settings) => CupertinoPageRoute(builder: (context) => RootScreen()),
     );
   }
 }

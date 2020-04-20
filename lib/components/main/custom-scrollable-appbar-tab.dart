@@ -2,15 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oylex/Foundation/Utils/app_colors.dart';
 import 'package:oylex/Foundation/Utils/constants.dart';
-import 'package:oylex/Foundation/Utils/helper.dart';
 
-class CoursesTab extends StatefulWidget with PreferredSizeWidget {
-  CoursesTab({Key key, this.parentKey, this.height, this.tabWidth, this.tabController, this.onPressed}) : super(key: key);
+class ScrollableAppbarTab extends StatefulWidget {
+  ScrollableAppbarTab(
+      {Key key, this.tabWidth, this.tabController, this.onPressed})
+      : super(key: key);
 
-  @required
-  final String parentKey;
-  @required
-  final double height;
   @required
   final double tabWidth;
   @required
@@ -18,13 +15,10 @@ class CoursesTab extends StatefulWidget with PreferredSizeWidget {
   final Function onPressed;
 
   @override
-  _CoursesTabState createState() => _CoursesTabState();
-
-  @override
-  Size get preferredSize => Size.fromHeight(height);
+  _ScrollableAppbarTabState createState() => _ScrollableAppbarTabState();
 }
 
-class _CoursesTabState extends State<CoursesTab> {
+class _ScrollableAppbarTabState extends State<ScrollableAppbarTab> {
   TabController _tabController;
   int _currentIndex;
   final borderRadius = Radius.circular(16.0);
@@ -32,37 +26,32 @@ class _CoursesTabState extends State<CoursesTab> {
   void _onTabChange(index) => setState(() => _currentIndex = index);
 
   void _tabChangeListener() {
-    setState(() {
-      _currentIndex = _tabController.index;
-      writeSharedPreference(widget.parentKey, _currentIndex, SHARED_PREF_TYPE.INT);
-    });
+    setState(() => _currentIndex = _tabController.index);
   }
 
   @override
   void initState() {
     _tabController = widget.tabController;
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() async {
-    super.didChangeDependencies();
-    _currentIndex = await readSharedPreference(widget.parentKey, SHARED_PREF_TYPE.INT) ?? _tabController.index;
-    // Animate to stored index
-    _tabController.animateTo(_currentIndex);
+    _currentIndex = _tabController.index;
     _tabController.addListener(_tabChangeListener);
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: true,
+      left: true,
+      right: true,
       child: Container(
         key: widget.key,
         color: Colors.transparent,
         padding: EdgeInsets.only(top: 8.0),
         child: Container(
           alignment: Alignment.center,
-          margin: EdgeInsets.only(left: deviceLeftMargin(context), right: deviceRightMargin(context)),
+          margin: EdgeInsets.only(
+              left: deviceLeftMargin(context),
+              right: deviceRightMargin(context)),
           child: TabBar(
             labelPadding: EdgeInsets.zero,
             isScrollable: false,
@@ -70,7 +59,8 @@ class _CoursesTabState extends State<CoursesTab> {
             indicatorColor: AppColors.windowBackground.shade900,
             indicatorSize: TabBarIndicatorSize.tab,
             indicatorWeight: 5.0,
-            indicatorPadding: EdgeInsets.symmetric(horizontal: deviceWidth(context) * 0.05),
+            indicatorPadding:
+                EdgeInsets.symmetric(horizontal: deviceWidth(context) * 0.04),
             onTap: _onTabChange,
 //            indicator: ShadowTabIndicator(
 //              color: AppColors.windowBackground.shade900,
@@ -79,15 +69,12 @@ class _CoursesTabState extends State<CoursesTab> {
 //            ),
             tabs: <Widget>[
               Container(
-                height: widget.height,
                 child: _buildTab("RECENT", position: TAB_POSITION.LEFT),
               ),
               Container(
-                height: widget.height,
                 child: _buildTab("ALL"),
               ),
               Container(
-                height: widget.height,
                 child: _buildTab("STUDYING", position: TAB_POSITION.RIGHT),
               ),
             ],
@@ -114,12 +101,11 @@ class _CoursesTabState extends State<CoursesTab> {
                 child: Center(
                   child: Ink(
                     width: widget.tabWidth,
-                    height: widget.height,
                     child: InkWell(
                       child: Center(
                         child: Text(title),
                       ),
-//                      onTap: widget.onPressed,
+                      onTap: widget.onPressed,
                     ),
                   ),
                 ),
@@ -144,9 +130,11 @@ class _CoursesTabState extends State<CoursesTab> {
   BorderRadius _buildTabRadius(TAB_POSITION position) {
     switch (position) {
       case TAB_POSITION.LEFT:
-        return BorderRadius.only(topLeft: borderRadius, bottomLeft: borderRadius);
+        return BorderRadius.only(
+            topLeft: borderRadius, bottomLeft: borderRadius);
       case TAB_POSITION.RIGHT:
-        return BorderRadius.only(topRight: borderRadius, bottomRight: borderRadius);
+        return BorderRadius.only(
+            topRight: borderRadius, bottomRight: borderRadius);
       default:
         return BorderRadius.zero;
     }
@@ -168,7 +156,8 @@ enum TAB_POSITION {
 class ShadowTabIndicator extends Decoration {
   final BoxPainter _painter;
 
-  ShadowTabIndicator({@required Color color, int currentIndex, int lastIndex}) : _painter = ShadowPainter(color, currentIndex, lastIndex - 1);
+  ShadowTabIndicator({@required Color color, int currentIndex, int lastIndex})
+      : _painter = ShadowPainter(color, currentIndex, lastIndex - 1);
 
   @override
   BoxPainter createBoxPainter([onChanged]) => _painter;
