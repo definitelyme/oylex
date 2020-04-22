@@ -44,7 +44,7 @@ class _AllCoursesTabState extends State<AllCoursesTab> with TickerProviderStateM
     else
       alignment = 0.15;
     // Scroll To index
-    _itemScrollController.scrollTo(index: index, duration: Duration(milliseconds: 600), curve: Curves.easeIn, alignment: alignment);
+    _itemScrollController.scrollTo(index: index, duration: Duration(milliseconds: 600), curve: Curves.linear, alignment: alignment);
   }
 
   @override
