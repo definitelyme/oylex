@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 class RecentCoursesTab extends StatefulWidget {
   static final keyValue = "my-courses---recent-tab";
 
-  RecentCoursesTab({Key key, this.scrollController}) : super(key: key);
-
-  final ScrollController scrollController;
+  RecentCoursesTab({Key key}) : super(key: key);
 
   @override
   _RecentCoursesTabState createState() => _RecentCoursesTabState();

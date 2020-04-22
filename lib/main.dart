@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: AppColors.windowBackground.shade700,
           accentColor: AppColors.oylexAccent,
           textTheme: GoogleFonts.workSansTextTheme(Theme.of(context).textTheme)),
-//      home: ScrollablePositionedListPage(),
+//      home: SampleApp(),
 //      initialRoute: IntroScreen.routeName,
       routes: router,
       onUnknownRoute: (settings) => CupertinoPageRoute(builder: (context) => RootScreen()),
