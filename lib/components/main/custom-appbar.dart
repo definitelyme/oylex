@@ -120,7 +120,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    backgroundColor = widget.backgroundColor ?? Theme.of(context).appBarTheme.color ?? Theme.of(context).primaryColor;
+    backgroundColor = widget.backgroundColor ?? Colors.transparent;
     elevation = widget.elevation ?? Theme.of(context).appBarTheme.elevation ?? 2.0;
 
     return StreamBuilder<bool>(
@@ -133,7 +133,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
     BuildContext context,
     AsyncSnapshot<bool> pinSnapshot,
   ) {
-    if (!pinSnapshot.hasData || pinSnapshot.data) {
+    if (!widget.isTabbed && (!pinSnapshot.hasData || pinSnapshot.data)) {
       return _elevation(1.0);
     }
     return StreamBuilder(
@@ -146,10 +146,17 @@ class _CustomAppBarState extends State<CustomAppBar> {
     BuildContext context,
     AsyncSnapshot<double> heightFactorSnapshot,
   ) {
-    if (!heightFactorSnapshot.hasData) {
+    if (!widget.isTabbed && (!heightFactorSnapshot.hasData)) {
       return _elevation(1.0);
     }
-    return _align(heightFactorSnapshot.data);
+    return !widget.isTabbed ? _align(heightFactorSnapshot.data) : toolbar;
+  }
+
+  Widget _elevation(double heightFactor) {
+    return Material(
+      elevation: elevation,
+      child: _decoratedContainer(heightFactor),
+    );
   }
 
   Widget _align(double heightFactor) {
@@ -157,13 +164,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
       alignment: Alignment(0, 1),
       heightFactor: heightFactor,
       child: _elevation(heightFactor),
-    );
-  }
-
-  Widget _elevation(double heightFactor) {
-    return Material(
-      elevation: elevation,
-      child: _decoratedContainer(heightFactor),
     );
   }
 

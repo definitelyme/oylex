@@ -4,8 +4,8 @@ import 'package:oylex/Foundation/Utils/app_colors.dart';
 import 'package:oylex/Foundation/Utils/constants.dart';
 import 'package:oylex/Foundation/Utils/helper.dart';
 
-class CoursesTab extends StatefulWidget with PreferredSizeWidget {
-  CoursesTab({Key key, this.parentKey, this.height, this.tabWidth, this.tabController, this.onPressed}) : super(key: key);
+class CustomTabAppBar extends StatefulWidget with PreferredSizeWidget {
+  CustomTabAppBar({Key key, this.parentKey, this.height, this.tabWidth, this.tabController, this.onPressed}) : super(key: key);
 
   @required
   final String parentKey;
@@ -18,13 +18,13 @@ class CoursesTab extends StatefulWidget with PreferredSizeWidget {
   final Function onPressed;
 
   @override
-  _CoursesTabState createState() => _CoursesTabState();
+  _CustomTabAppBarState createState() => _CustomTabAppBarState();
 
   @override
   Size get preferredSize => Size.fromHeight(height);
 }
 
-class _CoursesTabState extends State<CoursesTab> {
+class _CustomTabAppBarState extends State<CustomTabAppBar> {
   TabController _tabController;
   int _currentIndex;
   final borderRadius = Radius.circular(16.0);
@@ -155,7 +155,7 @@ class _CoursesTabState extends State<CoursesTab> {
   @override
   void dispose() {
     _tabController.removeListener(_tabChangeListener);
-    _tabController.dispose();
+//    _tabController.dispose();
     super.dispose();
   }
 }

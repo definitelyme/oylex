@@ -83,7 +83,72 @@ class Content {
           title: "${course.title} - Art & Design Fundamentals",
           description: desc,
           contentId: "art-n-design",
-        )
+        ),
+        Level(
+          id: "${Math.Random.secure().nextDouble()}",
+          title: "${course.title} - Fundamentals of Art",
+          description: desc,
+          children: <Level>[
+            Level(
+              contentId: "art-fundamentals",
+              title: "What is Art?",
+              subtitle: "What does it really mean?",
+              status: STATUS.COMPLETE,
+            ),
+            Level(
+              contentId: "art-fundamentals",
+              title: "Different Forms of Art",
+              subtitle: "It is not just painting",
+              status: STATUS.IN_PROGRESS,
+            ),
+            Level(
+              contentId: "art-fundamentals",
+              title: "Art Principles",
+              subtitle: "Why are they important?",
+            ),
+            Level(
+              contentId: "art-fundamentals",
+              title: "Color Theory",
+              subtitle: "Understanding Color",
+              children: [
+                Level(
+                  contentId: "art-fundamentals",
+                  title: "Sub Tile Art 1",
+                  subtitle: "Subtile - What does it really mean?",
+                ),
+                Level(
+                  contentId: "art-fundamentals",
+                  title: "Sub Tile Art 1",
+                  subtitle: "Subtile - It is not just painting",
+                ),
+                Level(
+                  contentId: "art-fundamentals",
+                  title: "Sub Tile Art 1",
+                  subtitle: "Subtile - Why are they important?",
+                ),
+              ],
+            ),
+          ],
+        ),
+        Level(
+          id: "${Math.Random.secure().nextDouble()}",
+          title: "${course.title} - Art & Design Fundamentals",
+          description: desc,
+          contentId: "art-n-design",
+        ),
+        Level(
+          id: "${Math.Random.secure().nextDouble()}",
+          title: "${course.title} - Approches to Art History",
+          description: desc,
+          children: <Level>[
+            Level(
+              contentId: "art-history",
+              title: "An Introduction",
+              description: desc,
+              subtitle: "Where does it matter?",
+            ),
+          ],
+        ),
       ],
     );
   }

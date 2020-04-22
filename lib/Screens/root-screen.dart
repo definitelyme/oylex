@@ -29,22 +29,16 @@ class _RootScreenState extends State<RootScreen> {
   List<Widget> _destinationViews;
   ScrollController _bottomNavigationController = ScrollController();
 
-  void _updateNavigationIndex(int index) =>
-      setState(() => _currentIndex = index);
+  void _updateNavigationIndex(int index) => setState(() => _currentIndex = index);
 
   void _scrollListener() {
-    if (_bottomNavigationController.position.userScrollDirection ==
-            ScrollDirection.reverse &&
-        _bottomNavigationController.offset > kBottomNavigationBarHeight) {
+    if (_bottomNavigationController.position.userScrollDirection == ScrollDirection.reverse && _bottomNavigationController.offset > kBottomNavigationBarHeight) {
       if (_isBottomNavVisible)
         setState(() {
           _isBottomNavVisible = false;
         });
     }
-    if (_bottomNavigationController.position.userScrollDirection ==
-            ScrollDirection.forward ||
-        _bottomNavigationController.offset == 0.0) if (!_isBottomNavVisible)
-      setState(() => _isBottomNavVisible = true);
+    if (_bottomNavigationController.position.userScrollDirection == ScrollDirection.forward || _bottomNavigationController.offset == 0.0) if (!_isBottomNavVisible) setState(() => _isBottomNavVisible = true);
   }
 
   @override
@@ -53,26 +47,11 @@ class _RootScreenState extends State<RootScreen> {
     _bottomNavigationController.addListener(_scrollListener);
 
     _destinationViews = [
-      FeaturedScreen(
-        key: featuredScreenKey,
-        scrollController: _bottomNavigationController,
-      ),
-      SearchScreen(
-        key: searchScreenKey,
-        scrollController: _bottomNavigationController,
-      ),
-      MyCoursesScreen(
-        key: myCoursesScreenKey,
-        scrollController: _bottomNavigationController,
-      ),
-      FavoriteScreen(
-        key: favoriteScreenKey,
-        scrollController: _bottomNavigationController,
-      ),
-      AccountScreen(
-        key: accountScreenKey,
-        scrollController: _bottomNavigationController,
-      ),
+      FeaturedScreen(key: featuredScreenKey),
+      SearchScreen(key: searchScreenKey),
+      MyCoursesScreen(key: myCoursesScreenKey),
+      FavoriteScreen(key: favoriteScreenKey),
+      AccountScreen(key: accountScreenKey),
     ];
   }
 
