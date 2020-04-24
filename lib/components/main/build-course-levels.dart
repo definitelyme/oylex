@@ -19,7 +19,7 @@ class CourseContentLevels extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Content _content = Content.generatedContentForCourse(course);
+    Content _content = Course.generatedContentForCourse(course);
 
     TimelineModel _buildLevelListTile(Level level, index) {
       bool hasSecondLevel = level.children.isNotEmpty;

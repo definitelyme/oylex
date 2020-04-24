@@ -55,11 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     // Already have an account...Sign in
-    _gotoSignupRecognizer = TapGestureRecognizer()
-      ..onTap = () => navigateAndReplace(
-          context: context,
-          routeName: NewAccountScreen.routeName,
-          arguments: AuthArgs(email: _email));
+    _gotoSignupRecognizer = TapGestureRecognizer()..onTap = () => navigateAndReplace(context: context, routeName: NewAccountScreen.routeName, arguments: AuthArgs(email: _email));
     super.initState();
   }
 
@@ -69,8 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
     double _deviceHeight = MediaQuery.of(context).size.height;
 
     final AuthArgs args = ModalRoute.of(context).settings.arguments;
-    if (args != null && args.email != null && args.email.length > 1)
-      _email = args.email;
+    if (args != null && args.email != null && args.email.length > 1) _email = args.email;
     print("Login Email: $_email");
 
     return Scaffold(
@@ -96,9 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text(
                   "Enter your login details to \naccess your account",
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.assistantTextTheme()
-                      .display4
-                      .copyWith(fontSize: 21.0),
+                  style: GoogleFonts.assistantTextTheme().display4.copyWith(fontSize: 21.0),
                 ),
                 SizedBox(
                   height: _deviceHeight * .10, // 70,
@@ -107,18 +100,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: Colors.transparent,
                     elevation: 0.0,
                     child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.windowBackground.shade800,
-                              blurRadius: 8.0,
-                              spreadRadius: 0.0,
-                              offset: Offset(
-                                  5.0, 5.0), // shadow direction: bottom right
-                            )
-                          ]),
+                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(12.0)), boxShadow: [
+                        BoxShadow(
+                          color: AppColors.windowBackground.shade800,
+                          blurRadius: 8.0,
+                          spreadRadius: 0.0,
+                          offset: Offset(5.0, 5.0), // shadow direction: bottom right
+                        )
+                      ]),
                       child: Form(
                         key: _formKey,
                         autovalidate: _autoValidate,
@@ -135,10 +124,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 focusNode: _emailNode,
                                 inputAction: TextInputAction.next,
                                 validator: (value) {
-                                  if (_email == null || _email.isEmpty)
-                                    return "Field is required";
-                                  if (!RegExp(emailPattern).hasMatch(_email))
-                                    return "Enter a valid email!";
+                                  if (_email == null || _email.isEmpty) return "Field is required";
+                                  if (!RegExp(emailPattern).hasMatch(_email)) return "Enter a valid email!";
                                   return null;
                                 },
                                 keyboardType: TextInputType.emailAddress,
@@ -155,26 +142,21 @@ class _LoginScreenState extends State<LoginScreen> {
                               alignment: Alignment.center,
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: <Widget>[
                                   Flexible(
                                     flex: 2,
                                     fit: FlexFit.tight,
                                     child: Container(
                                       child: AuthTextField(
-                                        textCapitalization:
-                                            TextCapitalization.none,
+                                        textCapitalization: TextCapitalization.none,
                                         focusNode: _passwordNode,
                                         inputAction: TextInputAction.go,
                                         validator: (value) {
-                                          if (_password == null ||
-                                              _password.isEmpty)
-                                            return "Field is required";
+                                          if (_password == null || _password.isEmpty) return "Field is required";
                                           return null;
                                         },
-                                        keyboardType:
-                                            TextInputType.emailAddress,
+                                        keyboardType: TextInputType.emailAddress,
                                         obscureText: _passwordObscured,
                                         hint: "Your Password",
                                         onChanged: (value) => _password = value,
@@ -187,9 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     shape: CircleBorder(),
                                     clipBehavior: Clip.hardEdge,
                                     child: IconButton(
-                                      icon: Icon(_passwordObscured
-                                          ? AppIcons.eyelash_closed
-                                          : AppIcons.eyelash_open),
+                                      icon: Icon(_passwordObscured ? AppIcons.eyelash_closed : AppIcons.eyelash_open),
                                       onPressed: _toggleObscurity,
                                     ),
                                   ),
@@ -202,12 +182,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: FlatButton(
                                       child: Text(
                                         "FORGOT",
-                                        style: TextStyle(
-                                            color: Colors.grey.shade600,
-                                            letterSpacing: 1.3),
+                                        style: TextStyle(color: Colors.grey.shade600, letterSpacing: 1.3),
                                       ),
-                                      materialTapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
+                                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                       padding: EdgeInsets.all(8.0),
                                       color: Colors.transparent,
                                       onPressed: _forgotPassword,
@@ -228,24 +205,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                        recognizer: _gotoSignupRecognizer,
-                        style: GoogleFonts.assistantTextTheme()
-                            .display4
-                            .copyWith(
-                                fontSize: 17.0, fontWeight: FontWeight.w400),
-                        text: "Hey! You're new",
-                        children: [
-                          TextSpan(
-                              recognizer: _gotoSignupRecognizer,
-                              text: "\nSIGN UP",
-                              style: GoogleFonts.assistantTextTheme()
-                                  .body2
-                                  .copyWith(
-                                      color: AppColors.oylexPrimary.shade600,
-                                      fontSize: 15.8,
-                                      letterSpacing: 1.15,
-                                      fontWeight: FontWeight.bold))
-                        ]),
+                      recognizer: _gotoSignupRecognizer,
+                      style: GoogleFonts.assistantTextTheme().display4.copyWith(fontSize: 17.0, fontWeight: FontWeight.w400),
+                      text: "Hey! You're new",
+                      children: [
+                        TextSpan(
+                          recognizer: _gotoSignupRecognizer,
+                          text: "\nSIGN UP",
+                          style: GoogleFonts.assistantTextTheme().body2.copyWith(
+                                color: AppColors.oylexPrimary.shade600,
+                                fontSize: 15.8,
+                                letterSpacing: 1.15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -260,15 +235,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       FlatButton(
                         child: Text(
                           "CONTINUE",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.5,
-                              letterSpacing: 1.2,
-                              fontWeight: FontWeight.w300),
+                          style: TextStyle(color: Colors.white, fontSize: 16.5, letterSpacing: 1.2, fontWeight: FontWeight.w300),
                         ),
                         color: AppColors.oylexPrimary.shade400,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(14.0)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
                         onPressed: _validateAndLogin,
                       ),
                       Positioned(
@@ -290,18 +260,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.oylexPrimary.shade50,
-                          blurRadius: 8.0,
-                          spreadRadius: 0.0,
-                          offset: Offset(
-                              2.0, 2.0), // shadow direction: bottom right
-                        )
-                      ]),
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(14.0)), boxShadow: [
+                    BoxShadow(
+                      color: AppColors.oylexPrimary.shade50,
+                      blurRadius: 8.0,
+                      spreadRadius: 0.0,
+                      offset: Offset(2.0, 2.0), // shadow direction: bottom right
+                    )
+                  ]),
                 ),
                 SizedBox(
                   height: _deviceHeight * .10,

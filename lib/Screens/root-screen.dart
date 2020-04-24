@@ -27,7 +27,12 @@ class _RootScreenState extends State<RootScreen> {
   int _currentIndex = 0;
   bool _isBottomNavVisible = true;
   List<Widget> _destinationViews;
-  ScrollController _bottomNavigationController = ScrollController();
+  ScrollController _bottomNavigationController = ScrollController(keepScrollOffset: true);
+
+  scrollStateCallback() {
+    if (!_isBottomNavVisible) setState(() => _isBottomNavVisible = true);
+    print("Found you");
+  }
 
   void _updateNavigationIndex(int index) => setState(() => _currentIndex = index);
 
@@ -38,7 +43,8 @@ class _RootScreenState extends State<RootScreen> {
           _isBottomNavVisible = false;
         });
     }
-    if (_bottomNavigationController.position.userScrollDirection == ScrollDirection.forward || _bottomNavigationController.offset == 0.0) if (!_isBottomNavVisible) setState(() => _isBottomNavVisible = true);
+    if (_bottomNavigationController.position.userScrollDirection == ScrollDirection.forward || _bottomNavigationController.offset == 0.0) if (!_isBottomNavVisible)
+      setState(() => _isBottomNavVisible = true);
   }
 
   @override

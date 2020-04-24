@@ -9,7 +9,7 @@ class CustomAppBar extends StatefulWidget with PreferredSizeWidget {
     @required this.scrollAppBarController,
     this.tabController,
     this.height = kToolbarHeight,
-    this.tabWidth,
+    this.tabTitles,
     this.tabBarKey,
     this.isTabbed = false,
     this.leading,
@@ -36,9 +36,9 @@ class CustomAppBar extends StatefulWidget with PreferredSizeWidget {
 
   final ScrollAppBarController scrollAppBarController;
   final TabController tabController;
+  final List<String> tabTitles;
   final bool isTabbed;
   final double height;
-  final double tabWidth;
   final String tabBarKey;
   final Widget leading;
   final bool automaticallyImplyLeading;
@@ -81,10 +81,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
         {
           toolbar = CustomTabAppBar(
             key: widget.key,
-            parentKey: widget.tabBarKey,
+            uniqueKey: widget.tabBarKey,
+            titles: widget.tabTitles,
             height: widget.height,
             tabController: widget.tabController,
-            tabWidth: widget.tabWidth,
           );
           break;
         }

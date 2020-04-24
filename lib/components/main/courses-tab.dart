@@ -5,17 +5,22 @@ import 'package:oylex/Foundation/Utils/constants.dart';
 import 'package:oylex/Foundation/Utils/helper.dart';
 
 class CustomTabAppBar extends StatefulWidget with PreferredSizeWidget {
-  CustomTabAppBar({Key key, this.parentKey, this.height, this.tabWidth, this.tabController, this.onPressed}) : super(key: key);
+  CustomTabAppBar({
+    Key key,
+    this.uniqueKey = "%custom-//tab*-appbar-unique-key",
+    this.height = kToolbarHeight,
+    this.titles,
+    this.tabController,
+  })  : assert(titles != null && titles.length == tabController.length),
+        assert(tabController != null && tabController is TabController),
+        super(key: key);
 
-  @required
-  final String parentKey;
-  @required
+  final String uniqueKey;
   final double height;
   @required
-  final double tabWidth;
+  final List<String> titles;
   @required
   final TabController tabController;
-  final Function onPressed;
 
   @override
   _CustomTabAppBarState createState() => _CustomTabAppBarState();
@@ -34,7 +39,9 @@ class _CustomTabAppBarState extends State<CustomTabAppBar> {
   void _tabChangeListener() {
     setState(() {
       _currentIndex = _tabController.index;
-      writeSharedPreference(widget.parentKey, _currentIndex, SHARED_PREF_TYPE.INT);
+      writeSharedPreference(widget.uniqueKey, _currentIndex, SHARED_PREF_TYPE.INT);
+//      widget.scrollCallback(true);
+//      _updateScrollState();
     });
   }
 
@@ -47,7 +54,7 @@ class _CustomTabAppBarState extends State<CustomTabAppBar> {
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
-    _currentIndex = await readSharedPreference(widget.parentKey, SHARED_PREF_TYPE.INT) ?? _tabController.index;
+    _currentIndex = await readSharedPreference(widget.uniqueKey, SHARED_PREF_TYPE.INT) ?? _tabController.index;
     // Animate to stored index
     _tabController.animateTo(_currentIndex);
     _tabController.addListener(_tabChangeListener);
@@ -77,20 +84,18 @@ class _CustomTabAppBarState extends State<CustomTabAppBar> {
 //              currentIndex: _currentIndex,
 //              lastIndex: _tabController.length,
 //            ),
-            tabs: <Widget>[
-              Container(
+            tabs: widget.titles.asMap().entries.map<Widget>((entry) {
+              TAB_POSITION tabPosition;
+              if (entry.key == 0)
+                tabPosition = TAB_POSITION.LEFT;
+              else if (entry.key == widget.titles.length - 1) tabPosition = TAB_POSITION.RIGHT;
+
+              /// Return A Tab
+              return Container(
                 height: widget.height,
-                child: _buildTab("RECENT", position: TAB_POSITION.LEFT),
-              ),
-              Container(
-                height: widget.height,
-                child: _buildTab("ALL"),
-              ),
-              Container(
-                height: widget.height,
-                child: _buildTab("STUDYING", position: TAB_POSITION.RIGHT),
-              ),
-            ],
+                child: _buildTab(entry.value.toUpperCase(), position: tabPosition),
+              );
+            }).toList(),
           ),
         ),
       ),
@@ -113,7 +118,7 @@ class _CustomTabAppBarState extends State<CustomTabAppBar> {
                 color: Colors.transparent,
                 child: Center(
                   child: Ink(
-                    width: widget.tabWidth,
+                    width: deviceWidth(context) - (deviceLeftMargin(context) + deviceRightMargin(context)),
                     height: widget.height,
                     child: InkWell(
                       child: Center(
