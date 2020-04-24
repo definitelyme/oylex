@@ -58,7 +58,7 @@ void writeSharedPreference(String key, dynamic value, SHARED_PREF_TYPE type) asy
   }
 }
 
-void precacheLocalImages(BuildContext context){
+void precacheLocalImages(BuildContext context) {
   precacheImage(AssetImage("$IMAGES_FOLDER/laravel-2.jpg"), context);
   precacheImage(AssetImage("$IMAGES_FOLDER/knowledge-03.jpg"), context);
   precacheImage(AssetImage("$IMAGES_FOLDER/knowledge-07.jpg"), context);
