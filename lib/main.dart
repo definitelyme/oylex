@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oylex/Foundation/Utils/app_colors.dart';
+import 'package:oylex/Foundation/Utils/constants.dart';
 import 'package:oylex/Foundation/Utils/routes.dart';
 import 'package:oylex/Screens/root-screen.dart';
 
@@ -18,9 +19,13 @@ class MyApp extends StatelessWidget {
       //DeviceOrientation.portraitDown,
     ]);
 
+    precacheImage(AssetImage("$IMAGES_FOLDER/laravel-2.jpg"), context);
+    precacheImage(AssetImage("$IMAGES_FOLDER/knowledge-03.jpg"), context);
+    precacheImage(AssetImage("$IMAGES_FOLDER/knowledge-07.jpg"), context);
+
     return MaterialApp(
 //      key: _globalKey,
-      title: 'Oylex',
+      title: 'Oylex | e-Learning Platform',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primarySwatch: AppColors.oylexPrimary,
