@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:oylex/Foundation/Utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 String randomString(int length) {
@@ -55,6 +56,12 @@ void writeSharedPreference(String key, dynamic value, SHARED_PREF_TYPE type) asy
       preferences.setStringList(key, value);
       break;
   }
+}
+
+void precacheLocalImages(BuildContext context){
+  precacheImage(AssetImage("$IMAGES_FOLDER/laravel-2.jpg"), context);
+  precacheImage(AssetImage("$IMAGES_FOLDER/knowledge-03.jpg"), context);
+  precacheImage(AssetImage("$IMAGES_FOLDER/knowledge-07.jpg"), context);
 }
 
 enum SHARED_PREF_TYPE {
