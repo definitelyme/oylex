@@ -15,9 +15,6 @@ class MyCoursesScreen extends StatefulWidget {
 }
 
 class _MyCoursesScreenState extends State<MyCoursesScreen> with TickerProviderStateMixin {
-//  final Key _recentTabKey = PageStorageKey(RecentCoursesTab.keyValue);
-//  final Key _allTabKey = PageStorageKey(AllCoursesTab.keyValue);
-//  final Key _ownedTabKey = PageStorageKey(OwnedCoursesTab.keyValue);
   int _tabCount = 2;
   TabController _tabController;
 
@@ -29,7 +26,8 @@ class _MyCoursesScreenState extends State<MyCoursesScreen> with TickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+      child: Scaffold(
 //      appBar: CustomAppBar(
 //        scrollAppBarController: _appBarController,
 //        isTabbed: true,
@@ -39,21 +37,22 @@ class _MyCoursesScreenState extends State<MyCoursesScreen> with TickerProviderSt
 //        tabController: _tabController,
 //        tabTitles: ['recent', 'any', 'saved'],
 //      ),
-      appBar: CustomTabAppBar(
-        uniqueKey: MyCoursesScreen.keyValue,
-        height: deviceHeight(context) * 0.09,
-        tabController: _tabController,
-        titles: ['recent', 'saved'],
+        appBar: CustomTabAppBar(
+          uniqueKey: MyCoursesScreen.keyValue,
+          height: deviceHeight(context) * 0.09,
+          tabController: _tabController,
+          titles: ['recent', 'saved'],
 //        scrollCallback: widget.callback,
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        physics: BouncingScrollPhysics(),
-        children: [
-          RecentCoursesTab(),
+        ),
+        body: TabBarView(
+          controller: _tabController,
+          physics: BouncingScrollPhysics(),
+          children: [
+            RecentCoursesTab(),
 //          AllCoursesTab(),
-          OwnedCoursesTab(),
-        ],
+            OwnedCoursesTab(),
+          ],
+        ),
       ),
     );
   }
