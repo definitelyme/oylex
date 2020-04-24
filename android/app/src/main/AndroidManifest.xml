@@ -7,7 +7,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="Oylex e-Learning Platform"
+        android:label="Oylex e-Learning Portal"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

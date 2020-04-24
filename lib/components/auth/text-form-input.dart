@@ -12,8 +12,8 @@ class AuthTextField extends StatefulWidget {
       this.obscureText = false,
       this.enableSuggestions = true,
       this.textStyle = const TextStyle(fontSize: 20.0),
-      this.focusBorder = const BorderSide(color: Colors.transparent),
-      this.enabledBorder = const BorderSide(color: Colors.transparent),
+      this.focusBorderSide = const BorderSide(color: Colors.transparent),
+      this.enabledBorderSide = const BorderSide(color: Colors.transparent),
       @required this.validator,
       @required this.onChanged,
       this.onInputAction});
@@ -24,7 +24,7 @@ class AuthTextField extends StatefulWidget {
   final TextCapitalization textCapitalization;
   final TextInputType keyboardType;
   final TextInputAction inputAction;
-  final BorderSide focusBorder, enabledBorder;
+  final BorderSide focusBorderSide, enabledBorderSide;
   final bool obscureText;
   final bool enableSuggestions;
   final TextStyle textStyle;
@@ -51,11 +51,10 @@ class _AuthTextFieldState extends State<AuthTextField> {
           isDense: true,
           hasFloatingPlaceholder: true,
           hintText: widget.hint,
-          disabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.transparent)),
-          enabledBorder: UnderlineInputBorder(borderSide: widget.enabledBorder),
+          disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+          enabledBorder: UnderlineInputBorder(borderSide: widget.enabledBorderSide),
           focusedBorder: UnderlineInputBorder(
-            borderSide: widget.focusBorder,
+            borderSide: widget.focusBorderSide,
           )),
       style: widget.textStyle,
       textInputAction: widget.inputAction,

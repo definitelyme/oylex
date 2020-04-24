@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
 //      key: _globalKey,
-      title: 'Oylex | e-Learning Platform',
+      title: 'Oylex | e-Learning Portal',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primarySwatch: AppColors.oylexPrimary,
