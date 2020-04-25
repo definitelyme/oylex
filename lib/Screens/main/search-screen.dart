@@ -27,13 +27,11 @@ class _SearchScreenState extends State<SearchScreen> {
   String _searchString;
   bool _isTyping = false;
   double radius = 14.0;
-  double _topPadding = 0.0;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _scrollController = Provider.of<ScrollController>(context, listen: false);
-    _topPadding = deviceHeight(context) * 0.1;
   }
 
   Future<List<CourseCategory>> _getCourses(String searchValue) async {
@@ -65,9 +63,9 @@ class _SearchScreenState extends State<SearchScreen> {
             children: <Widget>[
               AnimatedContainer(
                 duration: Duration(milliseconds: 250),
-                margin: EdgeInsets.only(top: _topPadding),
+                margin: !_isTyping ? EdgeInsets.only(top: deviceHeight(context) * 0.1) : EdgeInsets.only(top: deviceHeight(context) * 0.01),
                 width: double.infinity,
-                height: deviceHeight(context) * 0.095,
+                height: deviceHeight(context) * 0.088,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(radius),
@@ -93,7 +91,6 @@ class _SearchScreenState extends State<SearchScreen> {
                             setState(() {
                               _searchString = value.trim();
                               _isTyping = false;
-                              _topPadding = _isTyping ? 0.0 : deviceHeight(context) * 0.1;
                             });
 
                             setState(() => _isTyping = _searchString != null && _searchString.length > 0);
@@ -125,12 +122,14 @@ class _SearchScreenState extends State<SearchScreen> {
                         color: Colors.transparent,
                         child: InkWell(
 //                          onTap: _search,
-                          child: Container(
-                            padding: EdgeInsets.all(12.0),
-                            child: Icon(
-                              Icons.search,
-                              size: 26,
-                              color: Colors.white,
+                          child: Center(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: deviceWidth(context) * 0.033),
+                              child: Icon(
+                                Icons.search,
+                                size: 26,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
@@ -195,7 +194,7 @@ class _SearchScreenState extends State<SearchScreen> {
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.title.copyWith(
                 color: Colors.black,
-                fontSize: 28.0,
+                fontSize: 26.5,
                 letterSpacing: 0.7,
               ),
         ),
@@ -204,7 +203,7 @@ class _SearchScreenState extends State<SearchScreen> {
           textAlign: TextAlign.center,
           text: TextSpan(
             style: Theme.of(context).textTheme.caption.copyWith(
-                  fontSize: 19.5,
+                  fontSize: 17.0,
                   color: Colors.grey.shade700,
                   letterSpacing: 0.7,
                 ),
@@ -247,7 +246,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   text: "#",
                   semanticsLabel: "Hash",
                   style: Theme.of(context).textTheme.title.copyWith(
-                        fontSize: 14.0,
+                        fontSize: 13.0,
                         fontWeight: FontWeight.w700,
                         color: AppColors.oylexPrimary,
                       ),
@@ -255,7 +254,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     TextSpan(
                       text: category.name,
                       style: Theme.of(context).textTheme.body2.copyWith(
-                            fontSize: 16.0,
+                            fontSize: 14.5,
                             fontWeight: FontWeight.w600,
                             color: Colors.black87,
                             letterSpacing: 0.7,
