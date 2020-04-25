@@ -20,7 +20,7 @@ class RecentCoursesTab extends StatefulWidget {
 }
 
 class _RecentCoursesTabState extends State<RecentCoursesTab> with SingleTickerProviderStateMixin {
-  int _paginate = 1;
+  int _paginate = 3;
   List<Course> _courses = Course.generatedCourses();
   List<CourseCategory> _categories = CourseCategory.dummyCategories();
   ScrollController _scrollController;
