@@ -21,7 +21,6 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  final List<CourseCategory> _categories = CourseCategory.dummyCategories();
   final List<Course> _courses = Course.generatedCourses();
   ScrollController _scrollController;
   String _searchString;
