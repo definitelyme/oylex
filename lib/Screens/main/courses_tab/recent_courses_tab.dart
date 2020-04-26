@@ -108,6 +108,7 @@ class _RecentCoursesTabState extends State<RecentCoursesTab> with SingleTickerPr
                   course: _courses.take(6).elementAt(index),
                   width: deviceWidth(context) * 0.7,
                   flexAlignment: MainAxisAlignment.end,
+                  onPressed: () {},
                   topFlex: 6,
                   bottomFlex: 5,
                   titleFont: 18.0,
@@ -173,6 +174,7 @@ class _RecentCoursesTabState extends State<RecentCoursesTab> with SingleTickerPr
                   course: recent,
                   flexAlignment: MainAxisAlignment.start,
                   radius: radius,
+                  onPressed: () {},
                 ),
               SizedBox(width: 14.0),
               Column(

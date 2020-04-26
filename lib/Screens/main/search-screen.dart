@@ -276,6 +276,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     course: categoryCourses.elementAt(index),
                     flexAlignment: MainAxisAlignment.start,
                     radius: radius,
+                    onPressed: () {},
                   );
                 },
               ),

@@ -15,6 +15,7 @@ class SquareCourseCard extends StatelessWidget {
   final double titleFont;
   final MainAxisAlignment flexAlignment;
   final double radius;
+  final Function onPressed;
 
   SquareCourseCard({
     @required this.course,
@@ -25,6 +26,7 @@ class SquareCourseCard extends StatelessWidget {
     this.titleFont = 15.0,
     this.flexAlignment = MainAxisAlignment.center,
     this.radius = 16.0,
+    @required this.onPressed,
   }) : assert(course != null);
 
   @override
@@ -73,45 +75,54 @@ class SquareCourseCard extends StatelessWidget {
               ),
               Flexible(
                 flex: bottomFlex,
-                child: Container(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          child: Text(
-                            course.title,
-                            style: Theme.of(context).textTheme.title.copyWith(fontSize: titleFont, fontWeight: FontWeight.w500, letterSpacing: 0.8),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            semanticsLabel: "Course Title",
-                            softWrap: true,
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        course.user.fullName,
-                        style: Theme.of(context).textTheme.caption.copyWith(fontSize: 13.5),
-                      ),
-                      RatingBuilder(rating: course.rating),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                child: Material(
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(radius), bottomRight: Radius.circular(radius)),
+                  clipBehavior: Clip.hardEdge,
+                  type: MaterialType.transparency,
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: onPressed(),
+                    child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
-                          Text(
-                            "NGN${course.price}",
-                            style: Theme.of(context).textTheme.subhead.copyWith(fontWeight: FontWeight.w500),
+                          Expanded(
+                            child: Container(
+                              child: Text(
+                                course.title,
+                                style: Theme.of(context).textTheme.title.copyWith(fontSize: titleFont, fontWeight: FontWeight.w500, letterSpacing: 0.8),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                semanticsLabel: "Course Title",
+                                softWrap: true,
+                                textAlign: TextAlign.start,
+                              ),
+                            ),
                           ),
-                          SizedBox(width: 8.0),
                           Text(
-                            "${course.oldPrice ?? ""}",
-                            style: Theme.of(context).textTheme.caption.copyWith(color: Colors.grey, fontSize: 13.0),
+                            course.user.fullName,
+                            style: Theme.of(context).textTheme.caption.copyWith(fontSize: 13.5),
+                          ),
+                          RatingBuilder(rating: course.rating),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                "NGN${course.price}",
+                                style: Theme.of(context).textTheme.subhead.copyWith(fontWeight: FontWeight.w500),
+                              ),
+                              SizedBox(width: 8.0),
+                              Text(
+                                "${course.oldPrice ?? ""}",
+                                style: Theme.of(context).textTheme.caption.copyWith(color: Colors.grey, fontSize: 13.0),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
