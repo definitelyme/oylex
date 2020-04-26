@@ -142,7 +142,7 @@ class _RecentCoursesTabState extends State<RecentCoursesTab> with SingleTickerPr
                 text: "#",
                 semanticsLabel: "Hash",
                 style: Theme.of(context).textTheme.title.copyWith(
-                      fontSize: 14.0,
+                      fontSize: 13.0,
                       fontWeight: FontWeight.w700,
                       color: AppColors.oylexPrimary,
                     ),
@@ -150,7 +150,7 @@ class _RecentCoursesTabState extends State<RecentCoursesTab> with SingleTickerPr
                   TextSpan(
                     text: category.name,
                     style: Theme.of(context).textTheme.body2.copyWith(
-                          fontSize: 16.0,
+                          fontSize: 14.5,
                           fontWeight: FontWeight.w600,
                           color: Colors.black87,
                           letterSpacing: 0.7,
