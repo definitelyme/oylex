@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 
 class RootScreen extends StatefulWidget {
   static final routeName = "/";
+//  static final routeName = "/home";
 
   @override
   _RootScreenState createState() => _RootScreenState();

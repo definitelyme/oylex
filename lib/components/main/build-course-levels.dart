@@ -194,7 +194,7 @@ class CourseContentLevels extends StatelessWidget {
       itemCount: _content.levels.length,
       itemBuilder: (_, index) => __buildExpandableCard(_content.levels[index]),
       shrinkWrap: true,
-      physics: BouncingScrollPhysics(),
+      physics: defaultScrollPhysics(),
 //      addAutomaticKeepAlives: true,
     );
   }

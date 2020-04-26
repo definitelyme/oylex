@@ -226,7 +226,7 @@ class _SearchScreenState extends State<SearchScreen> {
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
       controller: _scrollController,
-      physics: BouncingScrollPhysics(),
+      physics: defaultScrollPhysics(),
       addAutomaticKeepAlives: true,
       itemCount: categories.length,
       itemBuilder: (_, index) {
@@ -267,7 +267,7 @@ class _SearchScreenState extends State<SearchScreen> {
               height: deviceHeight(context) * 0.3,
               child: ListView.builder(
                 controller: ScrollController(keepScrollOffset: false),
-                physics: BouncingScrollPhysics(),
+                physics: defaultScrollPhysics(),
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemCount: categoryCourses.length,

@@ -46,7 +46,7 @@ class _MyCoursesScreenState extends State<MyCoursesScreen> with TickerProviderSt
         ),
         body: TabBarView(
           controller: _tabController,
-          physics: BouncingScrollPhysics(),
+          physics: defaultScrollPhysics(),
           children: [
             RecentCoursesTab(),
 //          AllCoursesTab(),

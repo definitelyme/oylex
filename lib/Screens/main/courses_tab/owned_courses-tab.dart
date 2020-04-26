@@ -37,7 +37,7 @@ class _OwnedCoursesTabState extends State<OwnedCoursesTab> {
       key: widget.key,
       body: SafeArea(
         child: ListView(
-          physics: BouncingScrollPhysics(),
+          physics: defaultScrollPhysics(),
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           controller: _scrollController,

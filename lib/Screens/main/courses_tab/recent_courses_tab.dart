@@ -51,7 +51,7 @@ class _RecentCoursesTabState extends State<RecentCoursesTab> with SingleTickerPr
       key: widget.key,
       body: SafeArea(
         child: ListView(
-          physics: BouncingScrollPhysics(),
+          physics: defaultScrollPhysics(),
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           controller: _scrollController,
@@ -165,7 +165,7 @@ class _RecentCoursesTabState extends State<RecentCoursesTab> with SingleTickerPr
           height: deviceHeight(context) * 0.3,
           child: ListView(
             controller: ScrollController(keepScrollOffset: false),
-            physics: BouncingScrollPhysics(),
+            physics: defaultHorizontalScrollPhysics(),
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             children: <Widget>[

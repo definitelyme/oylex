@@ -30,3 +30,5 @@ double deviceRightMargin(BuildContext context) => deviceMargin(context);
 TextTheme deviceFontTheme() => GoogleFonts.workSansTextTheme();
 
 ScrollPhysics defaultScrollPhysics() => BouncingScrollPhysics();
+
+ScrollPhysics defaultHorizontalScrollPhysics() => BouncingScrollPhysics();
