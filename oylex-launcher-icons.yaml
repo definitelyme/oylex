@@ -4,5 +4,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
+  adaptive_icon_background: "#00869a3b"
   image_path: "assets/images/logo/main-logo.png"
-#  adaptive_icon_background: "#00869a3b"
+  #flutter pub get
+  #flutter pub run flutter_launcher_icons:main -f <your config file name here>
