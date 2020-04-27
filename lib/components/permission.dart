@@ -25,14 +25,12 @@ class _PermissionComponentState extends State<PermissionComponent> {
     // TODO: Show Permission
   }
 
-  void _skipPermission() {
-    navigateAndPopUntil(
-      context: context,
-      routeName: _nextRoute,
-      arguments: _nextRouteArgs,
-      popUntilRouteName: "",
-    );
-  }
+  void _skipPermission() => navigateAndPopUntil(
+        context: context,
+        routeName: _nextRoute,
+        arguments: _nextRouteArgs,
+        popUntilRouteName: "",
+      );
 
   @override
   Widget build(BuildContext context) {
