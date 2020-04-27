@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:oylex/Foundation/Utils/app_colors.dart';
+import 'package:oylex/Foundation/Utils/constants.dart';
 import 'package:oylex/Foundation/Utils/routes.dart';
 import 'package:oylex/Models/RouteArgs/permission-args.dart';
 import 'package:oylex/Screens/intro-screen.dart';
@@ -53,16 +53,11 @@ class _VerifyPinScreenState extends State<VerifyPinScreen> {
         PermissionArgs args = PermissionArgs(
             image: "9.png",
             title: "Notifications",
-            description:
-                "Stay notified about new course updates from instructors, score board stats and friend follows",
+            description: "Stay notified about new course updates from instructors, score board stats and friend follows",
             nextRoute: RootScreen.routeName,
             skipEnabled: true);
 
-        navigateAndPopUntil(
-            context: context,
-            routeName: PermissionComponent.routeName,
-            popUntilRouteName: IntroScreen.routeName,
-            arguments: args);
+        navigateAndPopUntil(context: context, routeName: PermissionComponent.routeName, popUntilRouteName: IntroScreen.routeName, arguments: args);
       });
     }
   }
@@ -78,9 +73,6 @@ class _VerifyPinScreenState extends State<VerifyPinScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double _deviceWidth = MediaQuery.of(context).size.width;
-    double _deviceHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
       appBar: ToolBar(
         context: context,
@@ -90,7 +82,7 @@ class _VerifyPinScreenState extends State<VerifyPinScreen> {
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(new FocusNode()),
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: defaultScrollPhysics(),
           scrollDirection: Axis.vertical,
           controller: ScrollController(),
           child: Container(
@@ -102,14 +94,12 @@ class _VerifyPinScreenState extends State<VerifyPinScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
-                  height: _deviceHeight * .05,
+                  height: deviceHeight(context) * .05,
                 ),
                 Text(
                   "We e-mailed you a code to verify \nyour phone number",
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.assistantTextTheme()
-                      .display4
-                      .copyWith(fontSize: 21.0),
+                  style: defaultTextTheme().display4.copyWith(fontSize: 21.0),
                 ),
 //                Image.asset(
 //                  "assets/images/verify.png",
@@ -117,7 +107,7 @@ class _VerifyPinScreenState extends State<VerifyPinScreen> {
 //                  fit: BoxFit.fitHeight,
 //                ),
                 SizedBox(
-                  height: _deviceHeight * .10,
+                  height: deviceHeight(context) * .10,
                 ),
                 PinCodeTextField(
                   length: _pinLength,
@@ -158,45 +148,28 @@ class _VerifyPinScreenState extends State<VerifyPinScreen> {
                       padding: EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
                         _errorText,
-                        style: GoogleFonts.assistantTextTheme()
-                            .display4
-                            .copyWith(
-                                color: Colors.red.shade300,
-                                fontSize: 15,
-                                letterSpacing: 1.1),
+                        style: defaultTextTheme().display4.copyWith(color: Colors.red.shade300, fontSize: 14.0, letterSpacing: 1.1),
                       ),
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: _deviceHeight * .07,
+                  height: deviceHeight(context) * .07,
                 ),
                 RichText(
                   textAlign: TextAlign.center,
-                  text: TextSpan(
-                      text: "I did not receive a code",
-                      recognizer: _onTapRecognizer,
-                      style: GoogleFonts.assistantTextTheme()
-                          .display4
-                          .copyWith(color: Colors.black54, fontSize: 16),
-                      children: [
-                        TextSpan(
-                            text: "\nRESEND",
-                            recognizer: _onTapRecognizer,
-                            style: GoogleFonts.assistantTextTheme()
-                                .display4
-                                .copyWith(
-                                    color: AppColors.oylexPrimary.shade600,
-                                    fontSize: 15.8,
-                                    letterSpacing: 1.1,
-                                    fontWeight: FontWeight.bold))
-                      ]),
+                  text: TextSpan(text: "I did not receive a code", recognizer: _onTapRecognizer, style: defaultTextTheme().display4.copyWith(color: Colors.black54, fontSize: 16), children: [
+                    TextSpan(
+                        text: "\nRESEND",
+                        recognizer: _onTapRecognizer,
+                        style: defaultTextTheme().display4.copyWith(color: AppColors.oylexPrimary.shade600, fontSize: 15.8, letterSpacing: 1.1, fontWeight: FontWeight.bold))
+                  ]),
                 ),
                 SizedBox(
-                  height: _deviceHeight * .06,
+                  height: deviceHeight(context) * .06,
                 ),
                 Container(
-                  width: (_deviceWidth / 2) * 1.83,
+                  width: deviceWidth(context) * 0.83,
                   height: 50.0,
                   child: Stack(
                     fit: StackFit.expand,
@@ -204,15 +177,10 @@ class _VerifyPinScreenState extends State<VerifyPinScreen> {
                       FlatButton(
                         child: Text(
                           "CONTINUE",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18.0,
-                              letterSpacing: 1.2,
-                              fontWeight: FontWeight.w300),
+                          style: TextStyle(color: Colors.white, fontSize: 18.0, letterSpacing: 1.2, fontWeight: FontWeight.w300),
                         ),
                         color: AppColors.oylexPrimary.shade400,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(14.0)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
                         onPressed: _validatePinCode,
                       ),
                       Positioned(
@@ -234,21 +202,17 @@ class _VerifyPinScreenState extends State<VerifyPinScreen> {
                       ),
                     ],
                   ),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.oylexPrimary.shade50,
-                          blurRadius: 8.0,
-                          spreadRadius: 0.0,
-                          offset: Offset(
-                              2.0, 2.0), // shadow direction: bottom right
-                        )
-                      ]),
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(14.0)), boxShadow: [
+                    BoxShadow(
+                      color: AppColors.oylexPrimary.shade50,
+                      blurRadius: 8.0,
+                      spreadRadius: 0.0,
+                      offset: Offset(2.0, 2.0), // shadow direction: bottom right
+                    )
+                  ]),
                 ),
                 SizedBox(
-                  height: _deviceHeight * .10,
+                  height: deviceHeight(context) * .10,
                 )
               ],
             ),

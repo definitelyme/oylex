@@ -81,7 +81,7 @@ class SquareCourseCard extends StatelessWidget {
                   type: MaterialType.transparency,
                   color: Colors.transparent,
                   child: InkWell(
-                    onTap: onPressed(),
+                    onTap: onPressed,
                     child: Container(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(

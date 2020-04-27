@@ -1,8 +1,8 @@
 import 'package:flag/flag.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:oylex/Foundation/Utils/app_colors.dart';
+import 'package:oylex/Foundation/Utils/constants.dart';
 import 'package:oylex/Foundation/Utils/routes.dart';
 import 'package:oylex/Foundation/Utils/validator.dart';
 import 'package:oylex/Models/RouteArgs/auth-props.dart';
@@ -41,24 +41,18 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
   void _validateAndProceed() {
     AuthArgs newUserDetails = AuthArgs(phone: _phoneNumber);
     // Proceed ro Create Password Page
-    Navigator.of(context)
-        .pushNamed(VerifyPinScreen.routeName, arguments: newUserDetails);
+    Navigator.of(context).pushNamed(VerifyPinScreen.routeName, arguments: newUserDetails);
   }
 
   @override
   void initState() {
     _dropdownItems = _buildCountriesMenu(_countries);
-    _selectedCountry = _countries.firstWhere((country) =>
-        country.codeName ==
-        "US"); // Set the current country as US - English. Please replace with server values
+    _selectedCountry = _countries.firstWhere((country) => country.codeName == "US"); // Set the current country as US - English. Please replace with server values
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    double _deviceWidth = MediaQuery.of(context).size.width;
-    double _deviceHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
       appBar: ToolBar(
         context: context,
@@ -69,19 +63,12 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
             onPressed: _skipTwoStepVerification,
             color: Colors.white10,
             clipBehavior: Clip.antiAlias,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
             child: Text(
               "SKIP",
-              style: GoogleFonts.assistantTextTheme().display4.copyWith(
-                  fontSize: 17.0,
-                  color: _isSkipBtnHighlighted
-                      ? Colors.black
-                      : Colors.grey.shade400,
-                  fontWeight: FontWeight.w500),
+              style: defaultTextTheme().display4.copyWith(fontSize: 17.0, color: _isSkipBtnHighlighted ? Colors.black : Colors.grey.shade400, fontWeight: FontWeight.w500),
             ),
-            onHighlightChanged: (value) =>
-                setState(() => _isSkipBtnHighlighted = value),
+            onHighlightChanged: (value) => setState(() => _isSkipBtnHighlighted = value),
           )
         ],
       ),
@@ -98,104 +85,92 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
-                  height: _deviceHeight * .05,
+                  height: deviceHeight(context) * .05,
                 ),
                 Text(
                   "Enter your mobile number to \nenable 2-step verification.",
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.assistantTextTheme()
-                      .display4
-                      .copyWith(fontSize: 21.0),
+                  style: defaultTextTheme().display4.copyWith(fontSize: 18.0),
                 ),
                 SizedBox(
-                  height: _deviceHeight * .10,
+                  height: deviceHeight(context) * .10,
                 ),
                 Card(
-                    color: Colors.transparent,
-                    elevation: 0.0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.windowBackground.shade800,
-                              blurRadius: 8.0,
-                              spreadRadius: 0.0,
-                              offset: Offset(
-                                  5.0, 5.0), // shadow direction: bottom right
-                            )
-                          ]),
-                      child: Form(
-                        key: _formKey,
-                        autovalidate: _autoValidate,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Expanded(
-                              flex: 0,
-                              child: Container(
-                                margin: EdgeInsets.only(left: 16.0),
-                                child: DropdownButton(
-                                  value: _selectedCountry,
-                                  items: _dropdownItems,
-                                  hint: Text(
-                                    "+00",
-                                    style: GoogleFonts.assistantTextTheme()
-                                        .display4
-                                        .copyWith(
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.w300,
-                                        ),
-                                  ),
-                                  icon: null,
-                                  iconSize: 0.0,
-                                  isDense: true,
-                                  elevation: 0,
-                                  underline: SizedBox(),
-                                  onChanged: _onCountryChange,
+                  color: Colors.transparent,
+                  elevation: 0.0,
+                  child: Container(
+                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(12.0)), boxShadow: [
+                      BoxShadow(
+                        color: AppColors.windowBackground.shade800,
+                        blurRadius: 8.0,
+                        spreadRadius: 0.0,
+                        offset: Offset(5.0, 5.0), // shadow direction: bottom right
+                      )
+                    ]),
+                    child: Form(
+                      key: _formKey,
+                      autovalidate: _autoValidate,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Expanded(
+                            flex: 0,
+                            child: Container(
+                              margin: EdgeInsets.only(left: 16.0),
+                              child: DropdownButton(
+                                value: _selectedCountry,
+                                items: _dropdownItems,
+                                hint: Text(
+                                  "+00",
+                                  style: defaultTextTheme().display4.copyWith(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                 ),
+                                icon: null,
+                                iconSize: 0.0,
+                                isDense: true,
+                                elevation: 0,
+                                underline: SizedBox(),
+                                onChanged: _onCountryChange,
                               ),
                             ),
-                            Container(
-                              height: 24.0,
-                              width: 0.67,
-                              color: Colors.grey.shade400,
-                              margin:
-                                  const EdgeInsets.only(left: 4.0, right: 4.0),
-                            ),
-                            Flexible(
-                              flex: 2,
-                              fit: FlexFit.tight,
-                              child: Container(
-                                margin:
-                                    EdgeInsets.fromLTRB(0, 12.0, 16.0, 12.0),
-                                alignment: Alignment.center,
-                                child: AuthTextField(
-                                  textCapitalization: TextCapitalization.none,
-                                  hint: "Mobile Number",
-                                  focusNode: _phoneNumberNode,
-                                  inputAction: TextInputAction.go,
-                                  enableSuggestions: false,
-                                  keyboardType: TextInputType.numberWithOptions(
-                                      decimal: false, signed: false),
-                                  validator: (String value) =>
-                                      Validator.passwordValidator(value),
-                                  onChanged: (value) => _phoneNumber = value,
-                                  onInputAction: () => _validateAndProceed,
-                                ),
+                          ),
+                          Container(
+                            height: 24.0,
+                            width: 0.67,
+                            color: Colors.grey.shade400,
+                            margin: const EdgeInsets.only(left: 4.0, right: 4.0),
+                          ),
+                          Flexible(
+                            flex: 2,
+                            fit: FlexFit.tight,
+                            child: Container(
+                              margin: EdgeInsets.fromLTRB(0, 5.0, 16.0, 0.0),
+                              child: AuthTextField(
+                                textCapitalization: TextCapitalization.none,
+                                hint: "Mobile Number",
+                                focusNode: _phoneNumberNode,
+                                inputAction: TextInputAction.go,
+                                enableSuggestions: false,
+                                keyboardType: TextInputType.numberWithOptions(decimal: false, signed: false),
+                                validator: (String value) => Validator.passwordValidator(value),
+                                onChanged: (value) => _phoneNumber = value,
+                                onInputAction: () => _validateAndProceed,
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    )),
+                    ),
+                  ),
+                ),
                 SizedBox(
-                  height: _deviceHeight * .16,
+                  height: deviceHeight(context) * .16,
                 ),
                 Container(
-                  width: (_deviceWidth / 2) * 1.83,
+                  width: deviceWidth(context) * 0.83,
                   height: 50.0,
                   child: Stack(
                     fit: StackFit.expand,
@@ -203,15 +178,10 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                       FlatButton(
                         child: Text(
                           "CONTINUE",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18.0,
-                              letterSpacing: 1.2,
-                              fontWeight: FontWeight.w300),
+                          style: TextStyle(color: Colors.white, fontSize: 18.0, letterSpacing: 1.2, fontWeight: FontWeight.w300),
                         ),
                         color: AppColors.oylexPrimary.shade400,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(14.0)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
                         onPressed: _validateAndProceed,
                       ),
                       Positioned(
@@ -233,21 +203,17 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                       ),
                     ],
                   ),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.oylexPrimary.shade50,
-                          blurRadius: 8.0,
-                          spreadRadius: 0.0,
-                          offset: Offset(
-                              2.0, 2.0), // shadow direction: bottom right
-                        )
-                      ]),
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(14.0)), boxShadow: [
+                    BoxShadow(
+                      color: AppColors.oylexPrimary.shade50,
+                      blurRadius: 8.0,
+                      spreadRadius: 0.0,
+                      offset: Offset(2.0, 2.0), // shadow direction: bottom right
+                    )
+                  ]),
                 ),
                 SizedBox(
-                  height: _deviceHeight * .10,
+                  height: deviceHeight(context) * .10,
                 )
               ],
             ),
@@ -276,8 +242,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                       padding: const EdgeInsets.only(left: 6.0),
                       child: Text(
                         "${country.dialCode}",
-                        style: TextStyle(
-                            fontSize: 18.0, fontWeight: FontWeight.w400),
+                        style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w400),
                       ),
                     ),
                   )

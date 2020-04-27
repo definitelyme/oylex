@@ -27,8 +27,12 @@ double deviceLeftMargin(BuildContext context) => deviceMargin(context);
 
 double deviceRightMargin(BuildContext context) => deviceMargin(context);
 
-TextTheme deviceFontTheme() => GoogleFonts.workSansTextTheme();
+// GoogleFonts.workSansTextTheme();
+// GoogleFonts.philosopherTextTheme();
+TextTheme defaultTextTheme({TextTheme textTheme}) => GoogleFonts.saralaTextTheme(textTheme);
 
-ScrollPhysics defaultScrollPhysics() => BouncingScrollPhysics();
+ScrollPhysics defaultScrollPhysics({ScrollPhysics parent}) => BouncingScrollPhysics(parent: parent);
 
-ScrollPhysics defaultHorizontalScrollPhysics() => BouncingScrollPhysics();
+ScrollPhysics defaultHorizontalScrollPhysics({ScrollPhysics parent}) => BouncingScrollPhysics(parent: parent);
+
+double defaultCardRadius() => 14.0;

@@ -130,7 +130,7 @@ class _CustomTabAppBarState extends State<CustomTabAppBar> {
                 ),
                 elevation: 0.0,
                 type: MaterialType.card,
-                textStyle: deviceFontTheme().title.copyWith(
+                textStyle: defaultTextTheme().title.copyWith(
                       fontSize: 14.0,
                       fontWeight: FontWeight.w600,
                     ),

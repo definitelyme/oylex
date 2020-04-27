@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:oylex/Foundation/Utils/constants.dart';
 import 'package:provider/provider.dart';
 
 class FeaturedScreen extends StatefulWidget {
@@ -23,11 +24,30 @@ class _FeaturedScreenState extends State<FeaturedScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: ListView.builder(
-        physics: BouncingScrollPhysics(),
+      child: NestedScrollView(
+        physics: defaultScrollPhysics(),
         controller: _scrollController,
-        itemCount: 150,
-        itemBuilder: (context, index) => ListTile(title: Text("This is ITEM ${index.toString()}")),
+        scrollDirection: Axis.vertical,
+        headerSliverBuilder: (_, isScrolled) {
+          return [
+            SliverSafeArea(
+              sliver: SliverToBoxAdapter(
+                child: Container(
+                  height: deviceHeight(context) * 0.3,
+                  width: deviceWidth(context),
+                  decoration: BoxDecoration(
+                    color: Colors.deepOrangeAccent,
+                    backgroundBlendMode: BlendMode.darken,
+                  ),
+                ),
+              ),
+            ),
+          ];
+        },
+        body: ListView.builder(
+          itemBuilder: (_, index) => Text("Another Text $index"),
+          itemExtent: 230,
+        ),
       ),
     );
   }

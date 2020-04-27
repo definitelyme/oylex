@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:oylex/Models/RouteArgs/route-args.dart';
 import 'package:oylex/Screens/auth/login.dart';
 import 'package:oylex/Screens/auth/phone-number.dart';
@@ -20,29 +21,38 @@ var router = {
   PermissionComponent.routeName: (context) => PermissionComponent(),
 };
 
-void navigateAndReplace(
-        {BuildContext context,
-        String routeName,
-        RouteArgs arguments,
-        dynamic result}) =>
-    Navigator.pushReplacementNamed(context, routeName,
-        arguments: arguments, result: result);
+void navigateAndReplace({BuildContext context, String routeName, RouteArgs arguments, dynamic result}) => Navigator.pushReplacementNamed(
+      context,
+      routeName,
+      arguments: arguments,
+      result: result,
+    );
 
-void navigateAndPush(
-        {BuildContext context, String routeName, RouteArgs arguments}) =>
-    Navigator.pushNamed(context, routeName, arguments: arguments);
+void navigateAndPush({BuildContext context, String routeName, RouteArgs arguments}) => Navigator.pushNamed(
+      context,
+      routeName,
+      arguments: arguments,
+    );
 
-void navigatePopAndPush(
-        {BuildContext context, String routeName, RouteArgs arguments}) =>
-    Navigator.popAndPushNamed(context, routeName, arguments: arguments);
+void navigatePopAndPush({BuildContext context, String routeName, RouteArgs arguments}) => Navigator.popAndPushNamed(
+      context,
+      routeName,
+      arguments: arguments,
+    );
 
-void navigateAndPopUntil(
-        {BuildContext context,
-        String routeName,
-        String popUntilRouteName,
-        RouteArgs arguments}) =>
+void navigateAndPopUntil({
+  BuildContext context,
+  String routeName,
+  String popUntilRouteName,
+  RouteArgs arguments,
+}) =>
     Navigator.pushNamedAndRemoveUntil(
-        context, routeName, ModalRoute.withName(popUntilRouteName),
-        arguments: arguments);
+      context,
+      routeName,
+      ModalRoute.withName(popUntilRouteName),
+      arguments: arguments,
+    );
+
+void navigatePopAllBelow({BuildContext context}) => Navigator.popUntil(context, (route) => false);
 
 void navigateBack(BuildContext context) => Navigator.pop(context);

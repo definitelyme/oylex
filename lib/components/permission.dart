@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:oylex/Foundation/Utils/app_colors.dart';
 import 'package:oylex/Foundation/Utils/constants.dart';
 import 'package:oylex/Foundation/Utils/routes.dart';
@@ -26,14 +25,17 @@ class _PermissionComponentState extends State<PermissionComponent> {
     // TODO: Show Permission
   }
 
-  void _skipPermission() => navigateAndReplace(
-      context: context, routeName: _nextRoute, arguments: _nextRouteArgs);
+  void _skipPermission() {
+    navigateAndPopUntil(
+      context: context,
+      routeName: _nextRoute,
+      arguments: _nextRouteArgs,
+      popUntilRouteName: "",
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    double _deviceWidth = MediaQuery.of(context).size.width;
-    double _deviceHeight = MediaQuery.of(context).size.height;
-
     // Get Arguments
     final PermissionArgs args = ModalRoute.of(context).settings.arguments;
     _image = args.image;
@@ -45,7 +47,7 @@ class _PermissionComponentState extends State<PermissionComponent> {
 
     return Scaffold(
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: defaultScrollPhysics(),
         scrollDirection: Axis.vertical,
         controller: ScrollController(),
         child: Container(
@@ -56,34 +58,34 @@ class _PermissionComponentState extends State<PermissionComponent> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               SizedBox(
-                height: _deviceHeight * .07,
+                height: deviceHeight(context) * .07,
               ),
               CircleAvatar(
                 backgroundColor: Colors.transparent,
-                backgroundImage: AssetImage("$PERMISSION_IMAGES_FOLDER$_image"),
-                minRadius: _deviceWidth * .20,
-                maxRadius: _deviceWidth * .35,
+                backgroundImage: AssetImage("$PERMISSION_IMAGES_FOLDER/$_image"),
+                minRadius: deviceWidth(context) * .20,
+                maxRadius: deviceWidth(context) * .35,
               ),
               SizedBox(
-                height: _deviceHeight * .06,
+                height: deviceHeight(context) * .06,
               ),
               Text(
                 _title,
-                style: GoogleFonts.saralaTextTheme().display4.copyWith(
-                    fontSize: 27.0,
-                    letterSpacing: 1.35,
-                    fontWeight: FontWeight.bold),
+                style: defaultTextTheme().display4.copyWith(fontSize: 25.5, letterSpacing: 1.35, fontWeight: FontWeight.bold),
               ),
-              Text(_description,
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.saralaTextTheme()
-                      .display1
-                      .copyWith(fontSize: 17.0, fontWeight: FontWeight.w400)),
+              Text(
+                _description,
+                textAlign: TextAlign.center,
+                style: defaultTextTheme().display1.copyWith(
+                      fontSize: 17.0,
+                      fontWeight: FontWeight.w400,
+                    ),
+              ),
               SizedBox(
-                height: _deviceHeight * .07,
+                height: deviceHeight(context) * .07,
               ),
               Container(
-                width: _deviceWidth * .37,
+                width: deviceWidth(context) * .37,
                 height: 50.0,
                 child: Stack(
                   fit: StackFit.expand,
@@ -93,17 +95,11 @@ class _PermissionComponentState extends State<PermissionComponent> {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           "ALLOW",
-                          style: GoogleFonts.saralaTextTheme()
-                              .display1
-                              .copyWith(
-                                  color: Colors.white,
-                                  fontSize: 17.0,
-                                  fontWeight: FontWeight.w400),
+                          style: defaultTextTheme().display1.copyWith(color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.w400),
                         ),
                       ),
                       color: AppColors.oylexPrimary.shade400,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14.0)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
                       onPressed: _showPermission,
                     ),
                     Positioned(
@@ -125,38 +121,29 @@ class _PermissionComponentState extends State<PermissionComponent> {
                     ),
                   ],
                 ),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.oylexPrimary.shade50,
-                        blurRadius: 8.0,
-                        spreadRadius: 0.0,
-                        offset:
-                            Offset(2.0, 2.0), // shadow direction: bottom right
-                      )
-                    ]),
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(14.0)), boxShadow: [
+                  BoxShadow(
+                    color: AppColors.oylexPrimary.shade50,
+                    blurRadius: 8.0,
+                    spreadRadius: 0.0,
+                    offset: Offset(2.0, 2.0), // shadow direction: bottom right
+                  )
+                ]),
               ),
               SizedBox(
-                height: _deviceHeight * .03,
+                height: deviceHeight(context) * .03,
               ),
               Visibility(
                 visible: _skipEnabled,
                 child: FlatButton(
                   child: Text(
                     "SKIP",
-                    style: GoogleFonts.saralaTextTheme().display1.copyWith(
-                        color: Colors.black38,
-                        fontSize: 17.0,
-                        fontWeight: FontWeight.w400),
+                    style: defaultTextTheme().display1.copyWith(color: Colors.black38, fontSize: 17.0, fontWeight: FontWeight.w400),
                   ),
                   color: Colors.transparent,
                   onPressed: _skipPermission,
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 10.0, horizontal: 20.0),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0)),
+                  padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                 ),
               ),
             ],
